@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="memberMapper">
+  	<select id="selectAll" resultType="Member">
+  		select *
+  		from member
+  		order by register_date asc;
+  	</select>
+  	
+  	<select id="selectAllByKey" parameterType="hashmap" resultType="Member">
+  		select *
+  		from member
+  		where ${key} = #{value}
+  	</select>
+  	
+  	<select id="selectOne" parameterType="String" resultType="Member">
+  		select *
+  		from member
+  		where member_id = #{member_id}
+  	</select>
+  	
+  	<insert id="insertOne" parameterType="Member">
+  		insert into member(member_id, member_pw, member_email, register_date, user_level)
+  		values (#{member_id}, #{member_pw}, #{member_email}, now(), #{user_level})
+  	</insert>
+  	
+  	<update id= "updateOne" parameterType="Member">
+  		update member
+  		<set>
+  			<if test="member_pw != null">member_pw = #{member_pw},</if>
+  			<if test="member_email != null">member_email = #{member_email},</if>
+  			<if test="user_level != null">user_level = #{user_level}</if>
+  		</set>
+  		where
+  		member_id = #{member_id}
+  	</update>
+  	
+  	<delete id="deleteOne" parameterType="String">
+  		delete from member
+  		where
+  		member_id = #{member_id}
+  	</delete>
+  	
+  </mapper>
