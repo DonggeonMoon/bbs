@@ -34,7 +34,6 @@
 		<button type="button" onclick="location.href='boardList'">목록</button>
 		<input type="hidden" name="board_no" value="<c:out value="${board.board_no }" />">
 		<input type="hidden" name="board_hit" value="<c:out value="${board.board_hit }" />">
-		<input type="hidden" name="board_likes" value="<c:out value="${board.board_likes }" />">
 		<input type="hidden" name="member_id">
 		</form>
 	</div>

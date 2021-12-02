@@ -59,7 +59,7 @@ public class BBSController {
 	}
 	
 	@PostMapping("/updateBoard2")
-	public String boardUpdate2(Board board) {
+	public String updateBoard2(Board board) {
 		service.updateOneBoard(board);
 		return "redirect:/viewBoard?board_no=" + board.getBoard_no();
 	}
