@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.bbs.DAO.MemberDAO;
 import com.bbs.DTO.Board;
 import com.bbs.DTO.Comment;
 import com.bbs.DTO.DTO;
+import com.bbs.DTO.Member;
 
 @Service
 public class BBSService {
@@ -25,7 +27,43 @@ public class BBSService {
 	@Inject
 	MemberDAO mdao;
 	
-	public List<DTO> selectAllBoard() {
+	public boolean checkId(String member_id) {
+		return ((mdao.selectOne(member_id) != null) ? true : false);
+	}
+	
+	public boolean checkPw(String member_id, String member_pw) {
+		return ((((Member) mdao.selectOne(member_id)).getMember_pw().equals(member_pw)) ? true : false);
+	}
+	
+	public void login(String member_id, HttpSession session) {
+		session.setAttribute("member", mdao.selectOne(member_id));
+	}
+	
+	public void logout(HttpSession session) {
+		session.removeAttribute("member");
+	}
+	
+	public void register (Member member) {
+		mdao.insertOne(member);
+	}
+	
+	public Member getMemberInfo(HttpSession session) {
+		return mdao.selectOne(((Member) session.getAttribute("member")).getMember_id());
+	}
+	
+	public void editMemberInfo(Member member) {
+		mdao.updateOne(member);
+	}
+	
+	public void deleteMemberInfo(String member_id) {
+		mdao.deleteOne(member_id);
+	}
+	
+	public List<Member> selectAllMember() {
+		return mdao.selectAll();
+	}
+	
+	public List<Board> selectAllBoard() {
 		return bdao.selectAll();
 	}
 	
@@ -49,7 +87,7 @@ public class BBSService {
 		bdao.deleteOne(board_no);
 	}
 	
-	public List<DTO> selectAllComment() {
+	public List<Comment> selectAllComment() {
 		return cdao.selectAll();
 	}
 	

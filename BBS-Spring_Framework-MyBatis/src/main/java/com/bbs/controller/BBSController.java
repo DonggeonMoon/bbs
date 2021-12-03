@@ -1,8 +1,12 @@
 package com.bbs.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bbs.DTO.Board;
 import com.bbs.DTO.Comment;
+import com.bbs.DTO.Member;
 import com.bbs.Service.BBSService;
 
 @Controller
@@ -23,7 +28,93 @@ public class BBSController {
 	public String home() {
 		return "home";
 	}
-
+	
+	@GetMapping("/login")
+	public String getLogin(String error, Model model) {
+		if (error != null) {
+			switch(error) {
+			case "1" : 
+				model.addAttribute("message", "아이디를 입력해주세요.");
+				break;
+			case "2" : 
+				model.addAttribute("message", "아이디가 없습니다.");
+				break;
+			case "3" :
+				model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+				break;
+			default:
+				model.addAttribute("message", "");
+				break;
+			}
+		} else {
+			model.addAttribute("message", "");
+		}
+		return "login";
+	}
+	
+	@PostMapping("/login")
+	public String postLogin(HttpSession session, Member member) {		
+		if (member.getMember_id() != "") {
+			if (service.checkId(member.getMember_id())) {
+				if(service.checkPw(member.getMember_id(), member.getMember_pw() )) {
+					service.login(member.getMember_id(), session);
+					return "redirect:/boardList";
+				} else return "redirect:/login?error=3";
+			} else return "redirect:/login?error=2";
+		} return "redirect:/login?error=1";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		service.logout(session);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/register")
+	public String getRegister() {
+		return "register";
+	}
+	
+	@PostMapping("/register")
+	public void postRegister(Member member, HttpServletResponse response) throws IOException {
+		service.register(member);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<meta charset=\"UTF-8\"><script type='text/javascript'>alert('회원 가입 완료');location.href='login';</script>");
+	}
+	
+	@GetMapping("/editMemberInfo")
+	public String editMemberInfo(HttpSession session, Model model) {
+		model.addAttribute("memberInfo", service.getMemberInfo(session));
+		return "editMemberInfo";
+	}
+	
+	@PostMapping("/editMemberInfo")
+	public String editMemberInfo2(Member member) {
+		service.editMemberInfo(member);		
+		return "redirect:/boardList";
+	}
+	
+	@GetMapping("/deleteMemberInfo")
+	public void deleteMemberInfo(String member_id, HttpServletResponse response) throws IOException {
+		service.deleteMemberInfo(member_id);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<meta charset=\"UTF-8\"><script type='text/javascript'>alert('탈퇴 완료');location.href='login';</script>");
+	}
+	
+	@GetMapping("managerPage")
+	public String managerPage(Model model) {
+		model.addAttribute("memberList", service.selectAllMember());
+		return "managerPage";
+	}
+	
+	@PostMapping("/changeUserLevel")
+	public String changeUserLevel(Member member) {
+		service.editMemberInfo(member);	
+		return "redirect:/managerPage";
+	}
+	
 	@GetMapping("/boardList")
 	public String boardList(Model model) {
 		model.addAttribute("boardList", service.selectAllBoard());
@@ -46,7 +137,7 @@ public class BBSController {
 		return "insertBoard";
 	}
 	
-	@PostMapping("/insertBoard2")
+	@PostMapping("/insertBoard")
 	public String insertBoard2(Board board) {
 		service.insertOneBoard(board);
 		return "redirect:/boardList";
@@ -58,7 +149,7 @@ public class BBSController {
 		return "updateBoard";
 	}
 	
-	@PostMapping("/updateBoard2")
+	@PostMapping("/updateBoard")
 	public String updateBoard2(Board board) {
 		service.updateOneBoard(board);
 		return "redirect:/viewBoard?board_no=" + board.getBoard_no();

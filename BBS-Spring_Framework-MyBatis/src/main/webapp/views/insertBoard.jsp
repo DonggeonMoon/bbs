@@ -10,7 +10,7 @@
 <body>
 	<h1>게시글 작성</h1>
 	<div style="width:100%;">
-		<form action="insertBoard2" method="post">
+		<form action="insertBoard" method="post">
 		<table border="1px" style="text-align:center">
 			<colgroup>
 				<col style="width:20%"/>
@@ -31,9 +31,9 @@
 			</tr>
 		</table>
 		<input type="submit" value="글 입력">
-		<button type="button" onclick="location.href='boardList'">목록</button>
 		<input type="hidden" name="member_id" value="test">
 		</form>
+		<button type="button" onclick="location.href='boardList'">목록</button>
 	</div>
 </body>
 </html>
