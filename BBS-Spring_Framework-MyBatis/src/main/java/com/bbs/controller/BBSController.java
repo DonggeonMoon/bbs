@@ -40,7 +40,7 @@ public class BBSController {
 				model.addAttribute("message", "아이디를 입력해주세요.");
 				break;
 			case "2" : 
-				model.addAttribute("message", "아이디가 없습니다.");
+				model.addAttribute("message", "존재하지 않는 아이디 입니다.");
 				break;
 			case "3" :
 				model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
