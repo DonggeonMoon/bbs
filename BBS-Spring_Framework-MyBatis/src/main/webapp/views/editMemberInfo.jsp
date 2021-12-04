@@ -23,19 +23,19 @@
 			<div>
 				<label style="display:inline-block;width:20%;">새 비밀번호:</label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="password" id="member_pw" name="member_pw">
+					<input style="width:60%;" type="password" id="member_pw" name="member_pw" required>
 				</div>
 			</div>
 			<div>
 				<label style="display:inline-block;width:20%;">새 비밀번호 확인: </label> 
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="password" id="member_pw2">
+					<input style="width:60%;" type="password" id="member_pw2" required>
 				</div>
 			</div>
 			<div>
 				<label style="display:inline-block;width:20%;">이메일: </label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="text" name="member_email" value="<c:out value='${memberInfo.member_email }' />">
+					<input style="width:60%;" type="email" name="member_email" value="<c:out value='${memberInfo.member_email }' />" required>
 				</div>
 			</div>
 			<input type="hidden" name="user_level" value="<c:out value='${memberInfo.user_level }' />">
