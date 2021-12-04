@@ -6,6 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function checkNotice() {
+		let is_notice = $("#is_notice").val();
+		console.log(is_notice);
+		if (is_notice == 'true') $("#is_notice").val('false');
+		else $("#is_notice").val('true');
+	}
+</script>
 </head>
 <body>
 	<h1>게시글 수정</h1>
@@ -26,7 +36,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label><input type="checkbox" name="is_notice" value="false">공지</label>
+						<label><input type="checkbox" id="is_notice" name="is_notice" value="${board.is_notice }" onchange="checkNotice()" <c:if test="${board.is_notice }">checked</c:if>>공지</label>
 					</td>
 				</tr>
 			</table>

@@ -3,6 +3,7 @@ package com.bbs.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbs.DTO.Board;
 import com.bbs.DTO.Comment;
@@ -83,6 +86,21 @@ public class BBSController {
 		out.println("<meta charset=\"UTF-8\"><script type='text/javascript'>alert('회원 가입 완료');location.href='login';</script>");
 	}
 	
+	@PostMapping("/checkId")
+	@ResponseBody
+	public Map<Object, Object> checkId(@RequestBody String member_id) {
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		if (service.checkId(member_id)) {
+			System.out.println("통과함1");
+			map.put("isUnique", false);
+		} else {
+			System.out.println("통과함2");
+			map.put("isUnique", true);
+		}
+		System.out.println("통과함.3" + map.get("isUnique"));
+		return map;
+	}
+	
 	@GetMapping("/editMemberInfo")
 	public String editMemberInfo(HttpSession session, Model model) {
 		model.addAttribute("memberInfo", service.getMemberInfo(session));
@@ -139,6 +157,7 @@ public class BBSController {
 	
 	@PostMapping("/insertBoard")
 	public String insertBoard2(Board board) {
+		System.out.println(board.isIs_notice());
 		service.insertOneBoard(board);
 		return "redirect:/boardList";
 	}

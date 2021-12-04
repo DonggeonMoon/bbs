@@ -14,7 +14,7 @@ public class Board implements DTO {
 	public Board() {
 		super();
 	}
-
+	
 	public Board(long board_no, String member_id, String board_title, String board_content, int board_hit, Timestamp write_date, boolean is_notice) {
 		super();
 		this.board_no = board_no;

@@ -6,7 +6,7 @@
   	<select id="selectAll" resultType="Board">
   		select *
   		from board
-  		order by board_no desc
+  		order by is_notice desc, board_no desc
   	</select>
   	
   	<select id="selectAllByKey" parameterType="hashmap" resultType="Board">

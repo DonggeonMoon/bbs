@@ -36,8 +36,26 @@
 						<c:url var="link" value="/viewBoard">
 							<c:param name="board_no" value="${i.board_no }" />
 						</c:url>
-						<td>${i.board_no }</td>
-						<td><a href="${link }">${i.board_title }</a></td>
+						<td>
+							<c:choose>
+								<c:when test="${i.is_notice == true }">
+									<b>공지</b>
+								</c:when>
+								<c:otherwise>
+									${i.board_no }
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${i.is_notice == true }">
+									<b><a href="${link }">${i.board_title }</a></b>
+								</c:when>
+								<c:otherwise>
+									<a href="${link }">${i.board_title }</a>
+								</c:otherwise>
+							</c:choose>	
+						</td>
 						<td>${i.member_id }</td>
 						<td>${i.board_hit }</td>
 						<td>${i.write_date }</td>
