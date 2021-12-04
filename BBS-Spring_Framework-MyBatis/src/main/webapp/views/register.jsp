@@ -42,9 +42,33 @@
 		});
 	});
 	
+	function confirmPw() {
+		var member_pw = $("#member_pw").val();
+		var member_pw2 = $("#member_pw2").val();
+		return (member_pw == member_pw2) ? true : false;
+	}
+	
+	function validateEmail(str) {
+		var regex = /^([A-z0-9!@#$%^&\*+-/=?_`\{\}\|~;. ]+)@([A-z0-9\-]+).([A-z.]+)$/;
+		
+		return (regex.test(str)) ? true : false;
+	}
+	
 	function submitForm() {
 		if (idChk && checkedId == ($("#member_id").val())) {
-			$("#form").submit();
+			if($("#member_pw").val() != "") {
+				if (confirmPw()) {
+					if(validateEmail($("#member_email").val())) {
+						$("#form").submit();
+					} else {
+						alert("이메일 형식을 확인해주세요.");	
+					}
+				} else {
+					alert("비밀번호가 일치하지 않습니다.");
+				}
+			} else {
+				alert("비밀번호를 입력해주세요.")
+			}
 		} else {
 			alert("아이디 중복 확인을 해주세요.");
 		}
@@ -77,7 +101,7 @@
 			<div>
 				<label style="display:inline-block;width:20%;">이메일: </label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="text" name="member_email">
+					<input style="width:60%;" type="email" id="member_email" name="member_email" required>
 				</div>
 			</div>
 			<input type="hidden" name="user_level" value="1">

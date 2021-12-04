@@ -91,13 +91,10 @@ public class BBSController {
 	public Map<Object, Object> checkId(@RequestBody String member_id) {
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
 		if (service.checkId(member_id)) {
-			System.out.println("통과함1");
 			map.put("isUnique", false);
 		} else {
-			System.out.println("통과함2");
 			map.put("isUnique", true);
 		}
-		System.out.println("통과함.3" + map.get("isUnique"));
 		return map;
 	}
 	
@@ -157,7 +154,6 @@ public class BBSController {
 	
 	@PostMapping("/insertBoard")
 	public String insertBoard2(Board board) {
-		System.out.println(board.isIs_notice());
 		service.insertOneBoard(board);
 		return "redirect:/boardList";
 	}
