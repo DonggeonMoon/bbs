@@ -35,16 +35,18 @@
 						<td><c:out value="${i.member_email }" /></td>
 						<td><c:out value="${i.user_level }" /></td>
 						<td>
-							<form style="display:inline" action="changeUserLevel" method="post">
-								<input type="hidden" name="member_id" value="${i.member_id }">
-								<input type="hidden" name="user_level" value="2">
-								<input type="submit" value="관리자 승격">
-							</form>
-							<form style="display:inline" action="changeUserLevel" method="post">
-								<input type="hidden" name="member_id" value="${i.member_id }">
-								<input type="hidden" name="user_level" value="1">
-								<input type="submit" value="회원으로 강등">
-							</form>
+							<c:if test="${i.user_level != 3 }">
+								<form style="display:inline" action="changeUserLevel" method="post">
+									<input type="hidden" name="member_id" value="${i.member_id }">
+									<input type="hidden" name="user_level" value="2">
+									<input type="submit" value="관리자 승격">
+								</form>
+								<form style="display:inline" action="changeUserLevel" method="post">
+									<input type="hidden" name="member_id" value="${i.member_id }">
+									<input type="hidden" name="user_level" value="1">
+									<input type="submit" value="회원으로 강등">
+								</form>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
