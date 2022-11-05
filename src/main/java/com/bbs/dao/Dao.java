@@ -6,10 +6,10 @@ import java.util.List;
 import com.bbs.dto.Dto;
 
 public interface Dao<T extends Dto> {
-	public List<T> selectAll();
-	public List<T> selectAllByKey(HashMap<Object, Object> map);
-	public Dto selectOne(Object no);
-	public void insertOne(T dto);	
-	public void updateOne(T dto);	
-	public void deleteOne(Object no);
+	List<T> selectAll();
+	List<T> selectAllByKey(HashMap<Object, Object> map);
+	Dto selectOne(Object no);
+	void insertOne(T dto);	
+	void updateOne(T dto);	
+	void deleteOne(Object no);
 }

@@ -1,49 +1,47 @@
 package com.bbs.dao;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.bbs.dto.Comment;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.bbs.dto.Comment;
+import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class CommentDao implements Dao<Comment> {
-	@Inject
-	SqlSession ss;
-	
-	final static String NAMESPACE = "commentMapper.";
+    @Inject
+    SqlSession ss;
 
-	@Override
-	public List<Comment> selectAll() {
-		return ss.selectList(NAMESPACE + "selectAll");
-	}
-	
-	@Override
-	public List<Comment> selectAllByKey(HashMap<Object, Object> map) {
-		return ss.selectList(NAMESPACE + "selectAllByKey", map);
-	}
-	
-	@Override
-	public Comment selectOne(Object comment_no) {
-		return ss.selectOne(NAMESPACE + "selectOne", comment_no);
-	}
+    final static String NAMESPACE = "commentMapper.";
 
-	@Override
-	public void insertOne(Comment comment) {
-		ss.insert(NAMESPACE + "insertOne", comment);
-	}
+    @Override
+    public List<Comment> selectAll() {
+        return ss.selectList(NAMESPACE + "selectAll");
+    }
 
-	@Override
-	public void updateOne(Comment comment) {
-		ss.update(NAMESPACE + "updateOne", comment);
-	}
+    @Override
+    public List<Comment> selectAllByKey(HashMap<Object, Object> map) {
+        return ss.selectList(NAMESPACE + "selectAllByKey", map);
+    }
 
-	@Override
-	public void deleteOne(Object comment_no) {
-		ss.delete(NAMESPACE + "deleteOne", comment_no);
-	}
+    @Override
+    public Comment selectOne(Object comment_no) {
+        return ss.selectOne(NAMESPACE + "selectOne", comment_no);
+    }
+
+    @Override
+    public void insertOne(Comment comment) {
+        ss.insert(NAMESPACE + "insertOne", comment);
+    }
+
+    @Override
+    public void updateOne(Comment comment) {
+        ss.update(NAMESPACE + "updateOne", comment);
+    }
+
+    @Override
+    public void deleteOne(Object comment_no) {
+        ss.delete(NAMESPACE + "deleteOne", comment_no);
+    }
 }
