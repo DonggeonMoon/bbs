@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bbs.dto.Comment;
 
 @Repository
-public class CommentDAO implements DAO<Comment> {
+public class CommentDao implements Dao<Comment> {
 	@Inject
 	SqlSession ss;
 	

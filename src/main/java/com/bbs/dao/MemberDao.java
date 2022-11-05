@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bbs.dto.Member;
 
 @Repository
-public class MemberDAO implements DAO<Member> {
+public class MemberDao implements Dao<Member> {
 	@Inject
 	SqlSession ss;
 	

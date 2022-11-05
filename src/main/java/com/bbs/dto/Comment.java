@@ -2,7 +2,7 @@ package com.bbs.dto;
 
 import java.sql.Timestamp;
 
-public class Comment implements DTO {
+public class Comment implements Dto {
 	private long board_no;
 	private long comment_no;
 	private Object comment_parent;

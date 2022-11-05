@@ -2,7 +2,7 @@ package com.bbs.dto;
 
 import java.sql.Timestamp;
 
-public class Board implements DTO {
+public class Board implements Dto {
 	private long board_no;
 	private String member_id;
 	private String board_title;

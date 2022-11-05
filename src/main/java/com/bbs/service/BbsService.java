@@ -8,24 +8,24 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-import com.bbs.dao.BoardDAO;
-import com.bbs.dao.CommentDAO;
-import com.bbs.dao.MemberDAO;
+import com.bbs.dao.BoardDao;
+import com.bbs.dao.CommentDao;
+import com.bbs.dao.MemberDao;
 import com.bbs.dto.Board;
 import com.bbs.dto.Comment;
-import com.bbs.dto.DTO;
+import com.bbs.dto.Dto;
 import com.bbs.dto.Member;
 
 @Service
-public class BBSService {
+public class BbsService {
 	@Inject
-	BoardDAO bdao;
+	BoardDao bdao;
 	
 	@Inject
-	CommentDAO cdao;
+	CommentDao cdao;
 	
 	@Inject
-	MemberDAO mdao;
+	MemberDao mdao;
 	
 	public boolean checkId(String member_id) {
 		return ((mdao.selectOne(member_id) != null) ? true : false);
@@ -71,7 +71,7 @@ public class BBSService {
 		return bdao.selectAllByKey(map);
 	}
 	
-	public DTO selectOneBoard(int board_no) {
+	public Dto selectOneBoard(int board_no) {
 		return bdao.selectOne(board_no);
 	}
 	
@@ -95,7 +95,7 @@ public class BBSService {
 		return cdao.selectAllByKey(map);
 	}
 	
-	public DTO selectOneComment(int comment_no) {
+	public Dto selectOneComment(int comment_no) {
 		return cdao.selectOne(comment_no);
 	}
 	

@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbs.dto.Board;
 import com.bbs.dto.Comment;
 import com.bbs.dto.Member;
-import com.bbs.service.BBSService;
+import com.bbs.service.BbsService;
 
 @Controller
-public class BBSController {
+public class BbsController {
 	
 	@Inject
-	BBSService service;
+	BbsService service;
 	
 	@GetMapping("/")
 	public String home() {
