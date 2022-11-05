@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bbs-spring-framework-mybatis:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>bbs-spring-framework-mybatis</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="BBS-Spring_Framework-MyBatis-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="bbs-spring-framework-mybatis:war exploded" />
+    </root>
+  </artifact>
+</component>
