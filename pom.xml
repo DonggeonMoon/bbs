@@ -30,12 +30,35 @@
 	    <artifactId>spring-jdbc</artifactId>
 	    <version>5.3.12</version>
 	</dependency>
-	<!-- JDBC 드라이버는 자신이 사용하는 DB에 맞게 변경하면 된다. -->
+	<dependency>
+	  <groupId>org.springframework.data</groupId>
+	  <artifactId>spring-data-jpa</artifactId>
+	  <version>2.7.5</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-orm</artifactId>
+	  <version>5.3.12</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.hibernate</groupId>
+	  <artifactId>hibernate-entitymanager</artifactId>
+	  <version>5.6.14.Final</version>
+	</dependency>
+	  <!--	<dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+          </dependency>-->
+
+
+	  <!-- JDBC 드라이버는 자신이 사용하는 DB에 맞게 변경하면 된다. -->
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>2.7.4</version>
 		</dependency>
+
 	<dependency>
 	    <groupId>org.mybatis</groupId>
 	    <artifactId>mybatis-spring</artifactId>
