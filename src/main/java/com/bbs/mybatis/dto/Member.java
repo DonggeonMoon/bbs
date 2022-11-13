@@ -1,4 +1,4 @@
-package com.bbs.dto;
+package com.bbs.mybatis.dto;
 
 import java.sql.Timestamp;
 

@@ -1,12 +1,12 @@
-package com.bbs.service;
+package com.bbs.mybatis.service;
 
-import com.bbs.dao.BoardDao;
-import com.bbs.dao.CommentDao;
-import com.bbs.dao.MemberDao;
-import com.bbs.dto.Board;
-import com.bbs.dto.Comment;
-import com.bbs.dto.Dto;
-import com.bbs.dto.Member;
+import com.bbs.mybatis.dao.BoardDao;
+import com.bbs.mybatis.dao.CommentDao;
+import com.bbs.mybatis.dao.MemberDao;
+import com.bbs.mybatis.dto.Board;
+import com.bbs.mybatis.dto.Comment;
+import com.bbs.mybatis.dto.Dto;
+import com.bbs.mybatis.dto.Member;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

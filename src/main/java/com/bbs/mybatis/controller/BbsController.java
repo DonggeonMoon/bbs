@@ -1,9 +1,9 @@
-package com.bbs.controller;
+package com.bbs.mybatis.controller;
 
-import com.bbs.dto.Board;
-import com.bbs.dto.Comment;
-import com.bbs.dto.Member;
-import com.bbs.service.BbsService;
+import com.bbs.mybatis.dto.Board;
+import com.bbs.mybatis.dto.Comment;
+import com.bbs.mybatis.dto.Member;
+import com.bbs.mybatis.service.BbsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
