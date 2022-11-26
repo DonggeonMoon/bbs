@@ -32,7 +32,14 @@ public class BbsController {
     }
 
     @GetMapping("/login")
-    public String getLogin(String error, Model model) {
+    public String getLogin(String error,
+                           Model model) {
+        model.addAttribute("message", this.getErrorMessage(error));
+
+        return "login";
+    }
+
+    private Object getErrorMessage(String error) {
         if (error != null) {
             switch (error) {
                 case "1":
@@ -99,7 +106,8 @@ public class BbsController {
     }
 
     @GetMapping("/editMemberInfo")
-    public String editMemberInfo(HttpSession session, Model model) {
+    public String editMemberInfo(HttpSession session,
+                                 Model model) {
         model.addAttribute("memberInfo", service.getMemberInfo(session));
         return "editMemberInfo";
     }
@@ -111,11 +119,15 @@ public class BbsController {
     }
 
     @GetMapping("/deleteMemberInfo")
-    public void deleteMemberInfo(String member_id, HttpServletResponse response) throws IOException {
+    public void deleteMemberInfo(String member_id,
+                                 HttpServletResponse response) throws IOException {
         service.deleteMemberInfo(member_id);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<meta charset=\"UTF-8\"><script type='text/javascript'>alert('탈퇴 완료');location.href='login';</script>");
+        out.println("<meta charset=\"UTF-8\">" +
+                "<script type='text/javascript'>" +
+                "alert('탈퇴 완료');location.href='login';" +
+                "</script>");
     }
 
     @GetMapping("managerPage")
@@ -137,7 +149,8 @@ public class BbsController {
     }
 
     @GetMapping("/viewBoard")
-    public String viewBoard(Model model, int board_no) {
+    public String viewBoard(Model model,
+                            int board_no) {
         service.addHit(board_no);
         model.addAttribute("board", service.selectOneBoard(board_no));
         HashMap<Object, Object> map = new HashMap<>();
@@ -159,7 +172,8 @@ public class BbsController {
     }
 
     @GetMapping("/updateBoard")
-    public String updateBoard(Model model, int board_no) {
+    public String updateBoard(Model model,
+                              int board_no) {
         model.addAttribute("board", service.selectOneBoard(board_no));
         return "updateBoard";
     }
