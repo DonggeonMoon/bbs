@@ -16,4 +16,32 @@ public class Board {
     private int board_hit;
     private Timestamp write_date;
     private boolean is_notice;
+
+    public long getBoard_no() {
+        return board_no;
+    }
+
+    public String getMember_id() {
+        return member_id;
+    }
+
+    public String getBoard_title() {
+        return board_title;
+    }
+
+    public String getBoard_content() {
+        return board_content;
+    }
+
+    public int getBoard_hit() {
+        return board_hit;
+    }
+
+    public Timestamp getWrite_date() {
+        return write_date;
+    }
+
+    public boolean isIs_notice() {
+        return is_notice;
+    }
 }
