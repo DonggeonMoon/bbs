@@ -43,35 +43,37 @@ public class BbsController {
         if (error != null) {
             switch (error) {
                 case "1":
-                    model.addAttribute("message", "아이디를 입력해주세요.");
-                    break;
+                    return "아이디를 입력해주세요.";
                 case "2":
-                    model.addAttribute("message", "존재하지 않는 아이디 입니다.");
-                    break;
+                    return "존재하지 않는 아이디 입니다.";
                 case "3":
-                    model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                    break;
+                    return "비밀번호가 일치하지 않습니다.";
                 default:
-                    model.addAttribute("message", "");
-                    break;
+                    return "";
             }
         } else {
-            model.addAttribute("message", "");
+            return "";
         }
-        return "login";
     }
 
     @PostMapping("/login")
-    public String postLogin(HttpSession session, Member member) {
-        if ("".equals(member.getMember_id())) {
-            if (service.checkId(member.getMember_id())) {
-                if (service.checkPw(member.getMember_id(), member.getMember_pw())) {
-                    service.login(member.getMember_id(), session);
-                    return "redirect:/boardList";
-                } else return "redirect:/login?error=3";
-            } else return "redirect:/login?error=2";
+    public String postLogin(HttpSession session,
+                            Member member) {
+        if ("".equals(member.getMember_id().trim())) {
+            return "redirect:/login?error=1";
         }
-        return "redirect:/login?error=1";
+
+        if (!service.checkId(member.getMember_id())) {
+            return "redirect:/login?error=2";
+        }
+
+        if (!service.checkPw(member.getMember_id(), member.getMember_pw())) {
+            return "redirect:/login?error=3";
+        }
+
+        service.login(member.getMember_id(), session);
+
+        return "redirect:/boardList";
     }
 
     @GetMapping("/logout")
