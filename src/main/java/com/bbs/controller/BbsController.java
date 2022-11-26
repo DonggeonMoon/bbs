@@ -1,9 +1,9 @@
-package com.bbs.mybatis.controller;
+package com.bbs.controller;
 
-import com.bbs.mybatis.dto.Board;
-import com.bbs.mybatis.dto.Comment;
-import com.bbs.mybatis.dto.Member;
-import com.bbs.mybatis.service.BbsService;
+import com.bbs.dto.Board;
+import com.bbs.dto.Comment;
+import com.bbs.dto.Member;
+import com.bbs.service.impl.MyBatisBbsServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -23,8 +22,9 @@ import java.util.Map;
 public class BbsController {
     private final MyBatisBbsServiceImpl service;
 
-    @Inject
-    BbsService service;
+    public BbsController(MyBatisBbsServiceImpl service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String home() {

@@ -1,17 +1,19 @@
-package com.bbs.mybatis.dao;
+package com.bbs.dao;
 
-import com.bbs.mybatis.dto.Board;
+import com.bbs.dto.Board;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public class BoardDao implements Dao<Board> {
-    @Inject
-    SqlSession ss;
+    private final SqlSession ss;
+
+    public BoardDao(SqlSession ss) {
+        this.ss = ss;
+    }
 
     final static String NAMESPACE = "boardMapper.";
 

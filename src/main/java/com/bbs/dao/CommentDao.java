@@ -4,14 +4,16 @@ import com.bbs.dto.Comment;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public class CommentDao implements Dao<Comment> {
-    @Inject
-    SqlSession ss;
+    private final SqlSession ss;
+
+    public CommentDao(SqlSession ss) {
+        this.ss = ss;
+    }
 
     final static String NAMESPACE = "commentMapper.";
 

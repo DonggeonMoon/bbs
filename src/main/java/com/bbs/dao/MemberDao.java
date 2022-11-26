@@ -4,14 +4,16 @@ import com.bbs.dto.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 
 @Repository
 public class MemberDao implements Dao<Member> {
-    @Inject
-    SqlSession ss;
+    public MemberDao(SqlSession ss) {
+        this.ss = ss;
+    }
+
+    private final SqlSession ss;
 
     final static String NAMESPACE = "memberMapper.";
 
