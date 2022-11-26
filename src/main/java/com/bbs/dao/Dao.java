@@ -1,9 +1,9 @@
-package com.bbs.mybatis.dao;
+package com.bbs.dao;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.bbs.mybatis.dto.Dto;
+import com.bbs.dto.Dto;
 
 public interface Dao<T extends Dto> {
 	List<T> selectAll();

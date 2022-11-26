@@ -21,6 +21,7 @@ import java.util.Map;
 
 @Controller
 public class BbsController {
+    private final MyBatisBbsServiceImpl service;
 
     @Inject
     BbsService service;

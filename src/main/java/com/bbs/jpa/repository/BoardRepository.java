@@ -1,7 +1,0 @@
-package com.bbs.jpa.repository;
-
-import com.bbs.mybatis.dto.Board;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface BoardRepository extends JpaRepository<Board, Long> {
-}

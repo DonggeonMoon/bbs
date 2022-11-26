@@ -1,4 +1,4 @@
-package com.bbs.jpa.model;
+package com.bbs.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

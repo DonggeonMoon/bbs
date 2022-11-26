@@ -1,6 +1,6 @@
-package com.bbs.mybatis.dao;
+package com.bbs.dao;
 
-import com.bbs.mybatis.dto.Member;
+import com.bbs.dto.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

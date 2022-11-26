@@ -1,29 +1,30 @@
-package com.bbs.mybatis.service;
+package com.bbs.service.impl;
 
-import com.bbs.mybatis.dao.BoardDao;
-import com.bbs.mybatis.dao.CommentDao;
-import com.bbs.mybatis.dao.MemberDao;
-import com.bbs.mybatis.dto.Board;
-import com.bbs.mybatis.dto.Comment;
-import com.bbs.mybatis.dto.Dto;
-import com.bbs.mybatis.dto.Member;
+import com.bbs.dao.BoardDao;
+import com.bbs.dao.CommentDao;
+import com.bbs.dao.MemberDao;
+import com.bbs.dto.Board;
+import com.bbs.dto.Comment;
+import com.bbs.dto.Dto;
+import com.bbs.dto.Member;
+import com.bbs.service.BbsService;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class BbsService {
-    @Inject
-    BoardDao bdao;
+public class MyBatisBbsServiceImpl implements BbsService {
+    private final BoardDao bdao;
+    private final CommentDao cdao;
+    private final MemberDao mdao;
 
-    @Inject
-    CommentDao cdao;
-
-    @Inject
-    MemberDao mdao;
+    public MyBatisBbsServiceImpl(BoardDao bdao, CommentDao cdao, MemberDao mdao) {
+        this.bdao = bdao;
+        this.cdao = cdao;
+        this.mdao = mdao;
+    }
 
     public boolean checkId(String member_id) {
         return ((mdao.selectOne(member_id) != null) ? true : false);

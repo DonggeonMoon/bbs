@@ -23,7 +23,7 @@
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
     </bean>
 
-    <jpa:repositories base-package="com.bbs.jpa.repository"/>
+    <jpa:repositories base-package="com.bbs.repository"/>
 
     <context:property-placeholder location="/WEB-INF/db.properties"/>
 
