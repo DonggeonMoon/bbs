@@ -46,25 +46,25 @@ public class BoardController {
     }
 
     @GetMapping("/insertBoard")
-    public String showBoardArticleInsertPage() {
+    public String showBoardArticleAddPage() {
         return "insertBoard";
     }
 
     @PostMapping("/insertBoard")
-    public String insertBoardArticle(BoardDto boardDto) {
+    public String addBoardArticle(BoardDto boardDto) {
         boardService.insertOneBoard(boardDto);
         return "redirect:/boardList";
     }
 
     @GetMapping("/updateBoard")
-    public String showBoardArticleUpdatePage(Model model,
-                                             int board_no) throws Exception {
-        model.addAttribute("board", boardService.selectOneBoard(board_no));
+    public String showBoardArticleModifyPage(Model model,
+                                                   int boardNo) throws Exception {
+        model.addAttribute("board", boardService.selectOneBoard(boardNo));
         return "updateBoard";
     }
 
     @PostMapping("/updateBoard")
-    public String updateBoardArticle(BoardDto boardDto) throws Exception {
+    public String modifyBoardArticle(BoardDto boardDto) throws Exception {
         boardService.updateOneBoard(boardDto);
         return "redirect:/viewBoard?boardNo=" + boardDto.getBoardNo();
     }

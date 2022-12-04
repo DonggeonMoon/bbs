@@ -33,7 +33,7 @@ public class MemberController {
         return "login";
     }
 
-    private Object getErrorMessage(String error) {
+    private String getErrorMessage(String error) {
         if (error != null) {
             switch (error) {
                 case "1":
@@ -102,14 +102,14 @@ public class MemberController {
     }
 
     @GetMapping("/editMemberInfo")
-    public String showMemberInfoEditPage(HttpSession session,
-                                         Model model) {
+    public String showMemberInfoModifyPage(HttpSession session,
+                                           Model model) {
         model.addAttribute("memberInfo", memberService.getMemberInfo(session));
         return "editMemberInfo";
     }
 
     @PostMapping("/editMemberInfo")
-    public String editMemberInfo(MemberDto memberDto) throws Exception {
+    public String modifyMemberInfo(MemberDto memberDto) throws Exception {
         memberService.editMemberInfo(memberDto);
         return "redirect:/boardList";
     }
@@ -126,8 +126,8 @@ public class MemberController {
                 "</script>");
     }
 
-    @GetMapping("managerPage")
-    public String managerPage(Model model) {
+    @GetMapping("/managerPage")
+    public String showManagerPage(Model model) {
         model.addAttribute("memberList", memberService.selectAllMember());
         return "managerPage";
     }

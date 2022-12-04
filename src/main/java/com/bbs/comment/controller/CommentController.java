@@ -36,7 +36,7 @@ public class CommentController {
     }
 
     @PostMapping("/updateComment")
-    public String updateComment(CommentDto commentDto) throws Exception {
+    public String modifyComment(CommentDto commentDto) throws Exception {
         commentService.updateComment(commentDto);
         return "redirect:/viewBoard?boardNo=" + commentDto.getBoardNo();
     }
