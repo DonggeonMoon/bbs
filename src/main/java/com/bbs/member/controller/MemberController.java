@@ -26,8 +26,8 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String getLogin(String error,
-                           Model model) {
+    public String showLoginPage(String error,
+                                Model model) {
         model.addAttribute("message", this.getErrorMessage(error));
 
         return "login";
@@ -51,8 +51,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String postLogin(HttpSession session,
-                            MemberDto memberDto) throws Exception {
+    public String login(HttpSession session,
+                        MemberDto memberDto) throws Exception {
         if ("".equals(memberDto.getMemberId().trim())) {
             return "redirect:/login?error=1";
         }
@@ -77,12 +77,12 @@ public class MemberController {
     }
 
     @GetMapping("/register")
-    public String getRegister() {
+    public String showRegisterPage() {
         return "register";
     }
 
     @PostMapping("/register")
-    public void postRegister(MemberDto memberDto, HttpServletResponse response) throws IOException {
+    public void register(MemberDto memberDto, HttpServletResponse response) throws IOException {
         memberService.register(memberDto);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -91,9 +91,9 @@ public class MemberController {
 
     @PostMapping("/checkId")
     @ResponseBody
-    public Map<Object, Object> checkId(@RequestBody String member_id) {
+    public Map<Object, Object> checkId(@RequestBody String memberId) {
         HashMap<Object, Object> map = new HashMap<>();
-        if (memberService.checkId(member_id)) {
+        if (memberService.checkId(memberId)) {
             map.put("isUnique", false);
         } else {
             map.put("isUnique", true);
@@ -102,22 +102,22 @@ public class MemberController {
     }
 
     @GetMapping("/editMemberInfo")
-    public String editMemberInfo(HttpSession session,
-                                 Model model) {
+    public String showMemberInfoEditPage(HttpSession session,
+                                         Model model) {
         model.addAttribute("memberInfo", memberService.getMemberInfo(session));
         return "editMemberInfo";
     }
 
     @PostMapping("/editMemberInfo")
-    public String editMemberInfo2(MemberDto memberDto) throws Exception {
+    public String editMemberInfo(MemberDto memberDto) throws Exception {
         memberService.editMemberInfo(memberDto);
         return "redirect:/boardList";
     }
 
     @GetMapping("/deleteMemberInfo")
-    public void deleteMemberInfo(String member_id,
+    public void deleteMemberInfo(String memberId,
                                  HttpServletResponse response) throws IOException {
-        memberService.deleteMemberInfo(member_id);
+        memberService.deleteMemberInfo(memberId);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<meta charset=\"UTF-8\">" +

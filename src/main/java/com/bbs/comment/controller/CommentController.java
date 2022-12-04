@@ -14,8 +14,8 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("addComment")
-    public String addComment(CommentDto commentDto) {
+    @PostMapping("/addComment")
+    public String addParentComment(CommentDto commentDto) {
         CommentDto parentCommentDto = CommentDto.of(commentDto.getBoardNo(),
                 commentDto.getCommentNo(),
                 null,
@@ -26,24 +26,24 @@ public class CommentController {
                 commentDto.getCommentDate()
         );
         commentService.addComment(parentCommentDto);
-        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
+        return "redirect:/viewBoard?boardNo=" + commentDto.getBoardNo();
     }
 
-    @PostMapping("addComment2")
-    public String addComment2(CommentDto commentDto) {
+    @PostMapping("/addComment2")
+    public String addChildComment(CommentDto commentDto) {
         commentService.addComment(commentDto);
-        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
+        return "redirect:/viewBoard?boardNo=" + commentDto.getBoardNo();
     }
 
-    @PostMapping("updateComment")
+    @PostMapping("/updateComment")
     public String updateComment(CommentDto commentDto) throws Exception {
         commentService.updateComment(commentDto);
-        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
+        return "redirect:/viewBoard?boardNo=" + commentDto.getBoardNo();
     }
 
-    @PostMapping("deleteComment")
-    public String deleteComment(int comment_no, int board_no) {
-        commentService.deleteComment(comment_no);
-        return "redirect:/viewBoard?board_no=" + board_no;
+    @PostMapping("/deleteComment")
+    public String deleteComment(int commentNo, int boardNo) {
+        commentService.deleteComment(commentNo);
+        return "redirect:/viewBoard?boardNo=" + boardNo;
     }
 }

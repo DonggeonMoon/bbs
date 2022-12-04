@@ -23,55 +23,55 @@ public class BoardController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String showHomePage() {
         return "home";
     }
 
     @GetMapping("/boardList")
-    public String boardList(Model model) {
+    public String showBoardList(Model model) {
         model.addAttribute("boardList", boardService.selectAllBoard());
         return "boardList";
     }
 
     @GetMapping("/viewBoard")
-    public String viewBoard(Model model,
-                            int board_no) throws Exception {
-        boardService.addHit(board_no);
-        model.addAttribute("board", boardService.selectOneBoard(board_no));
+    public String showBoardArticle(Model model,
+                                   int boardNo) throws Exception {
+        boardService.addHit(boardNo);
+        model.addAttribute("board", boardService.selectOneBoard(boardNo));
         HashMap<Object, Object> map = new HashMap<>();
         map.put("key", "board_no");
-        map.put("value", board_no);
+        map.put("value", boardNo);
         model.addAttribute("commentList", commentService.selectAllCommentByKey(map));
         return "viewBoard";
     }
 
     @GetMapping("/insertBoard")
-    public String insertBoard() {
+    public String showBoardArticleInsertPage() {
         return "insertBoard";
     }
 
     @PostMapping("/insertBoard")
-    public String insertBoard2(BoardDto boardDto) {
+    public String insertBoardArticle(BoardDto boardDto) {
         boardService.insertOneBoard(boardDto);
         return "redirect:/boardList";
     }
 
     @GetMapping("/updateBoard")
-    public String updateBoard(Model model,
-                              int board_no) throws Exception {
+    public String showBoardArticleUpdatePage(Model model,
+                                             int board_no) throws Exception {
         model.addAttribute("board", boardService.selectOneBoard(board_no));
         return "updateBoard";
     }
 
     @PostMapping("/updateBoard")
-    public String updateBoard2(BoardDto boardDto) throws Exception {
+    public String updateBoardArticle(BoardDto boardDto) throws Exception {
         boardService.updateOneBoard(boardDto);
-        return "redirect:/viewBoard?board_no=" + boardDto.getBoardNo();
+        return "redirect:/viewBoard?boardNo=" + boardDto.getBoardNo();
     }
 
     @GetMapping("/deleteBoard")
-    public String deleteBoard(int board_no) {
-        boardService.deleteOneBoard(board_no);
+    public String deleteBoardArticle(int boardNo) {
+        boardService.deleteOneBoard(boardNo);
         return "redirect:/boardList";
     }
 }
