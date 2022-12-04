@@ -1,6 +1,6 @@
 package com.bbs.comment.controller;
 
-import com.bbs.comment.dto.Comment;
+import com.bbs.comment.dto.CommentDto;
 import com.bbs.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,22 +15,30 @@ public class CommentController {
     }
 
     @PostMapping("addComment")
-    public String addComment(Comment comment) {
-        comment.setComment_parent(null);
-        commentService.addComment(comment);
-        return "redirect:/viewBoard?board_no=" + comment.getBoard_no();
+    public String addComment(CommentDto commentDto) {
+        CommentDto parentCommentDto = CommentDto.of(commentDto.getBoardNo(),
+                commentDto.getCommentNo(),
+                null,
+                commentDto.getCommentDepth(),
+                commentDto.getCommentSeq(),
+                commentDto.getMemberId(),
+                commentDto.getCommentContent(),
+                commentDto.getCommentDate()
+        );
+        commentService.addComment(parentCommentDto);
+        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
     }
 
     @PostMapping("addComment2")
-    public String addComment2(Comment comment) {
-        commentService.addComment(comment);
-        return "redirect:/viewBoard?board_no=" + comment.getBoard_no();
+    public String addComment2(CommentDto commentDto) {
+        commentService.addComment(commentDto);
+        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
     }
 
     @PostMapping("updateComment")
-    public String updateComment(Comment comment) {
-        commentService.updateComment(comment);
-        return "redirect:/viewBoard?board_no=" + comment.getBoard_no();
+    public String updateComment(CommentDto commentDto) throws Exception {
+        commentService.updateComment(commentDto);
+        return "redirect:/viewBoard?board_no=" + commentDto.getBoardNo();
     }
 
     @PostMapping("deleteComment")

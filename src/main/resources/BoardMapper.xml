@@ -3,31 +3,31 @@
   PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="boardMapper">
-  	<select id="selectAll" resultType="Board">
+  	<select id="selectAll" resultType="BoardDto">
   		select *
   		from board
   		order by is_notice desc, board_no desc
   	</select>
   	
-  	<select id="selectAllByKey" parameterType="hashmap" resultType="Board">
+  	<select id="selectAllByKey" parameterType="hashmap" resultType="BoardDto">
   		select *
   		from board
   		order by board_no desc
   		where ${key} = #{value}
   	</select>
   	
-  	<select id="selectOne" parameterType="int" resultType="Board">
+  	<select id="selectOne" parameterType="int" resultType="BoardDto">
   		select *
   		from board
   		where board_no = #{board_no}
   	</select>
   	
-  	<insert id="insertOne" parameterType="Board">
+  	<insert id="insertOne" parameterType="BoardDto">
   		insert into board(board_no, member_id, board_title, board_content, board_hit, write_date, is_notice)
   		values (default, #{member_id}, #{board_title}, #{board_content}, default, now(), #{is_notice})
   	</insert>
   	
-  	<update id= "updateOne" parameterType="Board">
+  	<update id= "updateOne" parameterType="BoardDto">
   		update board
   		<set>
   			<if test="board_title != null">board_title = #{board_title},</if>

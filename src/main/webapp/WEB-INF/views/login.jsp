@@ -15,13 +15,13 @@
 		<div>
 			<label style="display:inline-block;width:10%;">아이디:</label>
 			<div style="display:inline-block;width:20%;text-align:left;">
-				<input type="text" name="member_id">
+				<input type="text" name="memberId">
 			</div>
 		</div>
 		<div>
 			<label style="display:inline-block;width:10%;">비밀번호:</label>
 			<div style="display:inline-block;width:20%;text-align:left;">
-				<input type="password" name="member_pw">
+				<input type="password" name="memberPw">
 			</div>
 		</div>
 		<div><input type="submit" value="로그인"></div>

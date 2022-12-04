@@ -9,7 +9,7 @@
 </head>
 <body>
 	<header style="float:right">
-		<c:choose><c:when test="${sessionScope.member != null }"><c:out value="${sessionScope.member.member_id }" /> 님 <c:if test="${sessionScope.member.user_level == 3 }">(<a href="managerPage">관리자 페이지</a>)</c:if> <a href="editMemberInfo">회원 정보 수정</a> <a href="logout">로그아웃</a></c:when><c:otherwise><a href="login">로그인</a></c:otherwise></c:choose>
+		<c:choose><c:when test="${sessionScope.memberDto != null }"><c:out value="${sessionScope.memberDto.memberId }" /> 님 <c:if test="${sessionScope.memberDto.userLevel == 3 }">(<a href="managerPage">관리자 페이지</a>)</c:if> <a href="editMemberInfo">회원 정보 수정</a> <a href="logout">로그아웃</a></c:when><c:otherwise><a href="login">로그인</a></c:otherwise></c:choose>
 	</header>
 	<h1>게시판</h1>
 	<div style="width:100%;">
@@ -34,31 +34,31 @@
 				<c:forEach var="i" items="${boardList }">
 					<tr>
 						<c:url var="link" value="/viewBoard">
-							<c:param name="board_no" value="${i.board_no }" />
+							<c:param name="boardNo" value="${i.boardNo }" />
 						</c:url>
 						<td>
 							<c:choose>
-								<c:when test="${i.is_notice == true }">
+								<c:when test="${i.isNotice == true }">
 									<b>공지</b>
 								</c:when>
 								<c:otherwise>
-									${i.board_no }
+									${i.boardNo }
 								</c:otherwise>
 							</c:choose>
 						</td>
 						<td>
 							<c:choose>
-								<c:when test="${i.is_notice == true }">
-									<b><a href="${link }">${i.board_title }</a></b>
+								<c:when test="${i.isNotice == true }">
+									<b><a href="${link }">${i.boardTitle }</a></b>
 								</c:when>
 								<c:otherwise>
-									<a href="${link }">${i.board_title }</a>
+									<a href="${link }">${i.boardTitle }</a>
 								</c:otherwise>
 							</c:choose>	
 						</td>
-						<td>${i.member_id }</td>
-						<td>${i.board_hit }</td>
-						<td>${i.write_date }</td>
+						<td>${i.memberId }</td>
+						<td>${i.boardHit }</td>
+						<td>${i.writeDate }</td>
 					</tr>
 				</c:forEach>
 			</tbody>

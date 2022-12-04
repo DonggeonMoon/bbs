@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   	<typeAliases>
-  		<typeAlias type="com.bbs.board.dto.Board" alias="Board"/>
-  		<typeAlias type="com.bbs.comment.dto.Comment" alias="Comment"/>
-  		<typeAlias type="com.bbs.member.dto.Member" alias="Member"/>
+  		<typeAlias type="com.bbs.board.dto.BoardDto" alias="BoardDto"/>
+  		<typeAlias type="com.bbs.comment.dto.CommentDto" alias="CommentDto"/>
+  		<typeAlias type="com.bbs.member.dto.MemberDto" alias="MemberDto"/>
   	</typeAliases>
   </configuration>

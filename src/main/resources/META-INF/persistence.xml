@@ -3,9 +3,9 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="springjpa">
-        <class>com.bbs.board.model.Board</class>
-        <class>com.bbs.comment.model.Comment</class>
-        <class>com.bbs.member.model.Member</class>
+        <class>com.bbs.boardDto.model.Board</class>
+        <class>com.bbs.commentDto.model.Comment</class>
+        <class>com.bbs.memberDto.model.Member</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
             <property name="hibernate.show_sql" value="true"/>

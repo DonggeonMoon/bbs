@@ -1,23 +1,23 @@
 package com.bbs.board.service;
 
 import com.bbs.Dto;
-import com.bbs.board.dto.Board;
+import com.bbs.board.dto.BoardDto;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface BoardService {
-    List<Board> selectAllBoard();
+    List<BoardDto> selectAllBoard();
 
     Object selectAllBoardByKey(HashMap<Object, Object> map);
 
-    Dto selectOneBoard(int board_no);
+    Dto selectOneBoard(long boardNo) throws Exception;
 
-    void insertOneBoard(Board board);
+    void insertOneBoard(BoardDto boardDto);
 
-    void updateOneBoard(Board board);
+    void updateOneBoard(BoardDto boardDto) throws Exception;
 
-    void deleteOneBoard(int board_no);
+    void deleteOneBoard(long boardNo);
 
-    void addHit(int board_no);
+    void addHit(long boardNo) throws Exception;
 }

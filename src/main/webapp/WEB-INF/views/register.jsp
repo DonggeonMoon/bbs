@@ -13,13 +13,13 @@
 	console.log("버튼 눌림");
 	
 	$(document).ready(function(){
-		$("#checkId_btn").click(function(){
-			var member_id = $("#member_id").val();
-			if (member_id != "") {
+		$("#checkIdBtn").click(function(){
+			var memberId = $("#memberId").val();
+			if (memberId !== "") {
 				$.ajax({
 					async : true,
 					type : "POST",
-					data: member_id,
+					data: memberId,
 					url : "checkId",
 					dataType : "json",
 					contentType : "application/json; charset=UTF-8"
@@ -27,11 +27,11 @@
 					if (data.isUnique) {
 						idChk = true;
 						alert("사용할 수 있는 아이디입니다.");
-						$("#member_pw").focus();
-						checkedId = member_id;
+						$("#memberPw").focus();
+						checkedId = memberId;
 					} else {
 						alert("이미 존재하는 아이디입니다.");
-						$("#member_id").focus();
+						$("#memberId").focus();
 					}
 				}).fail(function(request, status, error) {
 					alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -43,22 +43,22 @@
 	});
 	
 	function confirmPw() {
-		var member_pw = $("#member_pw").val();
-		var member_pw2 = $("#member_pw2").val();
-		return (member_pw == member_pw2) ? true : false;
+		var memberPw = $("#memberPw").val();
+		var memberPw2 = $("#memberPw2").val();
+		return (memberPw === memberPw2);
 	}
 	
 	function validateEmail(str) {
 		var regex = /^([A-z0-9!@#$%^&\*+-/=?_`\{\}\|~;. ]+)@([A-z0-9\-]+).([A-z.]+)$/;
 		
-		return (regex.test(str)) ? true : false;
+		return (regex.test(str));
 	}
 	
 	function submitForm() {
-		if (idChk && checkedId == ($("#member_id").val())) {
-			if($("#member_pw").val() != "") {
+		if (idChk && checkedId === ($("#memberId").val())) {
+			if($("#memberPw").val() !== "") {
 				if (confirmPw()) {
-					if(validateEmail($("#member_email").val())) {
+					if(validateEmail($("#memberEmail").val())) {
 						$("#form").submit();
 					} else {
 						alert("이메일 형식을 확인해주세요.");	
@@ -82,29 +82,29 @@
 			<div>
 				<label style="display:inline-block;width:20%;">아이디:</label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="text" id="member_id" name="member_id">
-					<button style="margin:10px" type="button" id="checkId_btn">아이디 중복 확인</button>
+					<input style="width:60%;" type="text" id="memberId" name="memberId">
+					<button style="margin:10px" type="button" id="checkIdBtn">아이디 중복 확인</button>
 				</div>
 			</div>
 			<div>
 				<label style="display:inline-block;width:20%;">비밀번호:</label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="password" id="member_pw" name="member_pw">
+					<input style="width:60%;" type="password" id="memberPw" name="memberPw">
 				</div>
 			</div>
 			<div>
 				<label style="display:inline-block;width:20%;">비밀번호 확인: </label> 
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="password" id="member_pw2">
+					<input style="width:60%;" type="password" id="memberPw2">
 				</div>
 			</div>
 			<div>
 				<label style="display:inline-block;width:20%;">이메일: </label>
 				<div style="display:inline-block;width:40%;text-align:left;">
-					<input style="width:60%;" type="email" id="member_email" name="member_email" required>
+					<input style="width:60%;" type="email" id="memberEmail" name="memberEmail" required>
 				</div>
 			</div>
-			<input type="hidden" name="user_level" value="1">
+			<input type="hidden" name="userLevel" value="1">
 			<div>
 				<button type="button" onclick="submitForm()">회원 가입</button>
 				<button type="button" onclick="history.back(-1);">돌아가기</button>

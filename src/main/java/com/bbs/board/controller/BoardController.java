@@ -1,6 +1,6 @@
 package com.bbs.board.controller;
 
-import com.bbs.board.dto.Board;
+import com.bbs.board.dto.BoardDto;
 import com.bbs.board.service.BoardService;
 import com.bbs.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,7 +35,7 @@ public class BoardController {
 
     @GetMapping("/viewBoard")
     public String viewBoard(Model model,
-                            int board_no) {
+                            int board_no) throws Exception {
         boardService.addHit(board_no);
         model.addAttribute("board", boardService.selectOneBoard(board_no));
         HashMap<Object, Object> map = new HashMap<>();
@@ -51,22 +51,22 @@ public class BoardController {
     }
 
     @PostMapping("/insertBoard")
-    public String insertBoard2(Board board) {
-        boardService.insertOneBoard(board);
+    public String insertBoard2(BoardDto boardDto) {
+        boardService.insertOneBoard(boardDto);
         return "redirect:/boardList";
     }
 
     @GetMapping("/updateBoard")
     public String updateBoard(Model model,
-                              int board_no) {
+                              int board_no) throws Exception {
         model.addAttribute("board", boardService.selectOneBoard(board_no));
         return "updateBoard";
     }
 
     @PostMapping("/updateBoard")
-    public String updateBoard2(Board board) {
-        boardService.updateOneBoard(board);
-        return "redirect:/viewBoard?board_no=" + board.getBoard_no();
+    public String updateBoard2(BoardDto boardDto) throws Exception {
+        boardService.updateOneBoard(boardDto);
+        return "redirect:/viewBoard?board_no=" + boardDto.getBoardNo();
     }
 
     @GetMapping("/deleteBoard")

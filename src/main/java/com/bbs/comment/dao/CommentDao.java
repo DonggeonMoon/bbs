@@ -1,6 +1,6 @@
 package com.bbs.comment.dao;
 
-import com.bbs.comment.dto.Comment;
+import com.bbs.comment.dto.CommentDto;
 import com.bbs.Dao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class CommentDao implements Dao<Comment> {
+public class CommentDao implements Dao<CommentDto> {
     private final SqlSession ss;
 
     public CommentDao(SqlSession ss) {
@@ -19,28 +19,28 @@ public class CommentDao implements Dao<Comment> {
     final static String NAMESPACE = "commentMapper.";
 
     @Override
-    public List<Comment> selectAll() {
+    public List<CommentDto> selectAll() {
         return ss.selectList(NAMESPACE + "selectAll");
     }
 
     @Override
-    public List<Comment> selectAllByKey(HashMap<Object, Object> map) {
+    public List<CommentDto> selectAllByKey(HashMap<Object, Object> map) {
         return ss.selectList(NAMESPACE + "selectAllByKey", map);
     }
 
     @Override
-    public Comment selectOne(Object comment_no) {
+    public CommentDto selectOne(Object comment_no) {
         return ss.selectOne(NAMESPACE + "selectOne", comment_no);
     }
 
     @Override
-    public void insertOne(Comment comment) {
-        ss.insert(NAMESPACE + "insertOne", comment);
+    public void insertOne(CommentDto commentDto) {
+        ss.insert(NAMESPACE + "insertOne", commentDto);
     }
 
     @Override
-    public void updateOne(Comment comment) {
-        ss.update(NAMESPACE + "updateOne", comment);
+    public void updateOne(CommentDto commentDto) {
+        ss.update(NAMESPACE + "updateOne", commentDto);
     }
 
     @Override

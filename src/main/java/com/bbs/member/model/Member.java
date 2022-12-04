@@ -1,76 +1,88 @@
 package com.bbs.member.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.bbs.member.dto.MemberDto;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "member2")
 public class Member {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private String member_id;
-    private String member_pw;
-    private String member_email;
-    private Timestamp register_date;
-    private int user_level;
+    @Column(name = "member_id")
+    private String memberId;
+    @Basic
+    @Column(name = "member_email")
+    private String memberEmail;
+    @Basic
+    @Column(name = "member_pw")
+    private String memberPw;
+    @Basic
+    @Column(name = "register_date")
+    private Timestamp registerDate;
+    @Basic
+    @Column(name = "user_level")
+    private int userLevel;
 
     public Member() {
     }
 
-    public Member(String member_id,
-                  String member_pw,
-                  String member_email,
-                  Timestamp register_date,
-                  int user_level) {
-        this.member_id = member_id;
-        this.member_pw = member_pw;
-        this.member_email = member_email;
-        this.register_date = register_date;
-        this.user_level = user_level;
+    public Member(String memberId, String memberEmail, String memberPw, Timestamp registerDate, int userLevel) {
+        this.memberId = memberId;
+        this.memberEmail = memberEmail;
+        this.memberPw = memberPw;
+        this.registerDate = registerDate;
+        this.userLevel = userLevel;
     }
 
-    public String getMember_id() {
-        return member_id;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public String getMemberEmail() {
+        return memberEmail;
     }
 
-    public String getMember_pw() {
-        return member_pw;
+    public String getMemberPw() {
+        return memberPw;
     }
 
-    public void setMember_pw(String member_pw) {
-        this.member_pw = member_pw;
+    public Timestamp getRegisterDate() {
+        return registerDate;
     }
 
-    public String getMember_email() {
-        return member_email;
+    public int getUserLevel() {
+        return userLevel;
     }
 
-    public void setMember_email(String member_email) {
-        this.member_email = member_email;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return userLevel == member.userLevel && Objects.equals(memberId, member.memberId) && Objects.equals(memberEmail, member.memberEmail) && Objects.equals(memberPw, member.memberPw) && Objects.equals(registerDate, member.registerDate);
     }
 
-    public Timestamp getRegister_date() {
-        return register_date;
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId, memberEmail, memberPw, registerDate, userLevel);
     }
 
-    public void setRegister_date(Timestamp register_date) {
-        this.register_date = register_date;
+    public MemberDto toDto() {
+        return new MemberDto(this.memberId, this.memberPw, this.memberEmail, this.registerDate, this.userLevel);
     }
 
-    public int getUser_level() {
-        return user_level;
+    public static Member of(String memberId, String memberEmail, String memberPw, Timestamp registerDate, int userLevel) {
+        return new Member(memberId, memberEmail, memberPw, registerDate, userLevel);
     }
 
-    public void setUser_level(int user_level) {
-        this.user_level = user_level;
-    }
-
-    public com.bbs.member.dto.Member toDto() {
-        return new com.bbs.member.dto.Member(member_id, member_pw, member_email, register_date, user_level);
+    public void update(String memberId, String memberEmail, String memberPw, Timestamp registerDate, int userLevel) {
+        this.memberId = memberId;
+        this.memberEmail = memberEmail;
+        this.memberPw = memberPw;
+        this.registerDate = registerDate;
+        this.userLevel = userLevel;
     }
 }

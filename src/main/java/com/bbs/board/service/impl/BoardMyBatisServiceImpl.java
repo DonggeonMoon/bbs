@@ -2,7 +2,7 @@ package com.bbs.board.service.impl;
 
 import com.bbs.Dto;
 import com.bbs.board.dao.BoardDao;
-import com.bbs.board.dto.Board;
+import com.bbs.board.dto.BoardDto;
 import com.bbs.board.service.BoardService;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class BoardMyBatisServiceImpl implements BoardService {
         this.boardDao = boardDao;
     }
 
-    public List<Board> selectAllBoard() {
+    public List<BoardDto> selectAllBoard() {
         return boardDao.selectAll();
     }
 
@@ -25,25 +25,31 @@ public class BoardMyBatisServiceImpl implements BoardService {
         return boardDao.selectAllByKey(map);
     }
 
-    public Dto selectOneBoard(int board_no) {
-        return boardDao.selectOne(board_no);
+    public Dto selectOneBoard(long boardNo) {
+        return boardDao.selectOne(boardNo);
     }
 
-    public void insertOneBoard(Board board) {
-        boardDao.insertOne(board);
+    public void insertOneBoard(BoardDto boardDto) {
+        boardDao.insertOne(boardDto);
     }
 
-    public void updateOneBoard(Board board) {
-        boardDao.updateOne(board);
+    public void updateOneBoard(BoardDto boardDto) {
+        boardDao.updateOne(boardDto);
     }
 
-    public void deleteOneBoard(int board_no) {
-        boardDao.deleteOne(board_no);
+    public void deleteOneBoard(long boardNo) {
+        boardDao.deleteOne(boardNo);
     }
 
-    public void addHit(int board_no) {
-        Board board = (Board) boardDao.selectOne(board_no);
-        board.setBoard_hit(board.getBoard_hit() + 1);
-        boardDao.updateOne(board);
+    public void addHit(long boardNo) {
+        BoardDto fromDb = boardDao.selectOne(boardNo);
+        BoardDto boardDto = BoardDto.of(fromDb.getBoardNo(),
+                fromDb.getMemberId(),
+                fromDb.getBoardTitle(),
+                fromDb.getBoardContent(),
+                fromDb.getBoardHit() + 1,
+                fromDb.getWriteDate(),
+                fromDb.isNotice());
+        boardDao.updateOne(boardDto);
     }
 }

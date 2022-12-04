@@ -1,94 +1,106 @@
 package com.bbs.board.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.bbs.board.dto.BoardDto;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "board2")
 public class Board {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long board_no;
-    private String member_id;
-    private String board_title;
-    private String board_content;
-    private int board_hit;
-    private Timestamp write_date;
-    private boolean is_notice;
+    @Column(name = "board_no")
+    private long boardNo;
+    @Basic
+    @Column(name = "board_content")
+    private String boardContent;
+    @Basic
+    @Column(name = "board_hit")
+    private int boardHit;
+    @Basic
+    @Column(name = "board_title")
+    private String boardTitle;
+    @Basic
+    @Column(name = "is_notice")
+    private boolean isNotice;
+    @Basic
+    @Column(name = "member_id")
+    private String memberId;
+    @Basic
+    @Column(name = "write_date")
+    private Timestamp writeDate;
 
     public Board() {
     }
 
-    public Board(long board_no,
-                 String member_id,
-                 String board_title,
-                 String board_content,
-                 int board_hit,
-                 Timestamp write_date,
-                 boolean is_notice) {
-        this.board_no = board_no;
-        this.member_id = member_id;
-        this.board_title = board_title;
-        this.board_content = board_content;
-        this.board_hit = board_hit;
-        this.write_date = write_date;
-        this.is_notice = is_notice;
+    public Board(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {
+        this.boardNo = boardNo;
+        this.boardContent = boardContent;
+        this.boardHit = boardHit;
+        this.boardTitle = boardTitle;
+        this.isNotice = isNotice;
+        this.memberId = memberId;
+        this.writeDate = writeDate;
     }
 
-    public long getBoard_no() {
-        return board_no;
+    public long getBoardNo() {
+        return boardNo;
     }
 
-    public void setBoard_no(long board_no) {
-        this.board_no = board_no;
+    public String getBoardContent() {
+        return boardContent;
     }
 
-    public String getMember_id() {
-        return member_id;
+    public int getBoardHit() {
+        return boardHit;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public String getBoardTitle() {
+        return boardTitle;
     }
 
-    public String getBoard_title() {
-        return board_title;
+    public boolean isNotice() {
+        return isNotice;
     }
 
-    public void setBoard_title(String board_title) {
-        this.board_title = board_title;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public String getBoard_content() {
-        return board_content;
+    public Timestamp getWriteDate() {
+        return writeDate;
     }
 
-    public void setBoard_content(String board_content) {
-        this.board_content = board_content;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board2 = (Board) o;
+        return boardNo == board2.boardNo && boardHit == board2.boardHit && isNotice == board2.isNotice && Objects.equals(boardContent, board2.boardContent) && Objects.equals(boardTitle, board2.boardTitle) && Objects.equals(memberId, board2.memberId) && Objects.equals(writeDate, board2.writeDate);
     }
 
-    public int getBoard_hit() {
-        return board_hit;
+    @Override
+    public int hashCode() {
+        return Objects.hash(boardNo, boardContent, boardHit, boardTitle, isNotice, memberId, writeDate);
     }
 
-    public void setBoard_hit(int board_hit) {
-        this.board_hit = board_hit;
+    public BoardDto toDto() {
+        return new BoardDto(this.boardNo, this.memberId, this.boardTitle, this.boardTitle, this.boardHit, this.writeDate, this.isNotice);
     }
 
-    public Timestamp getWrite_date() {
-        return write_date;
+    public static Board of(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {
+        return new Board(boardNo, boardContent, boardHit, boardTitle, isNotice, memberId, writeDate);
     }
 
-    public void setWrite_date(Timestamp write_date) {
-        this.write_date = write_date;
-    }
-
-    public boolean isIs_notice() {
-        return is_notice;
-    }
-
-    public void setIs_notice(boolean is_notice) {
-        this.is_notice = is_notice;
+    public void update(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {
+        this.boardNo = boardNo;
+        this.boardContent = boardContent;
+        this.boardHit = boardHit;
+        this.boardTitle = boardTitle;
+        this.isNotice = isNotice;
+        this.memberId = memberId;
+        this.writeDate = writeDate;
     }
 }

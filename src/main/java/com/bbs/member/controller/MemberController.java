@@ -1,6 +1,6 @@
 package com.bbs.member.controller;
 
-import com.bbs.member.dto.Member;
+import com.bbs.member.dto.MemberDto;
 import com.bbs.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -52,20 +52,20 @@ public class MemberController {
 
     @PostMapping("/login")
     public String postLogin(HttpSession session,
-                            Member member) {
-        if ("".equals(member.getMember_id().trim())) {
+                            MemberDto memberDto) throws Exception {
+        if ("".equals(memberDto.getMemberId().trim())) {
             return "redirect:/login?error=1";
         }
 
-        if (!memberService.checkId(member.getMember_id())) {
+        if (!memberService.checkId(memberDto.getMemberId())) {
             return "redirect:/login?error=2";
         }
 
-        if (!memberService.checkPw(member.getMember_id(), member.getMember_pw())) {
+        if (!memberService.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
             return "redirect:/login?error=3";
         }
 
-        memberService.login(member.getMember_id(), session);
+        memberService.login(memberDto.getMemberId(), session);
 
         return "redirect:/boardList";
     }
@@ -82,8 +82,8 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public void postRegister(Member member, HttpServletResponse response) throws IOException {
-        memberService.register(member);
+    public void postRegister(MemberDto memberDto, HttpServletResponse response) throws IOException {
+        memberService.register(memberDto);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<meta charset=\"UTF-8\"><script type='text/javascript'>alert('회원 가입 완료');location.href='login';</script>");
@@ -109,8 +109,8 @@ public class MemberController {
     }
 
     @PostMapping("/editMemberInfo")
-    public String editMemberInfo2(Member member) {
-        memberService.editMemberInfo(member);
+    public String editMemberInfo2(MemberDto memberDto) throws Exception {
+        memberService.editMemberInfo(memberDto);
         return "redirect:/boardList";
     }
 
@@ -133,8 +133,8 @@ public class MemberController {
     }
 
     @PostMapping("/changeUserLevel")
-    public String changeUserLevel(Member member) {
-        memberService.editMemberInfo(member);
+    public String changeUserLevel(MemberDto memberDto) throws Exception {
+        memberService.editMemberInfo(memberDto);
         return "redirect:/managerPage";
     }
 }

@@ -2,7 +2,7 @@ package com.bbs.comment.service.impl;
 
 import com.bbs.Dto;
 import com.bbs.comment.dao.CommentDao;
-import com.bbs.comment.dto.Comment;
+import com.bbs.comment.dto.CommentDto;
 import com.bbs.comment.service.CommentService;
 import org.springframework.stereotype.Service;
 
@@ -17,39 +17,48 @@ public class CommentMyBatisImpl implements CommentService {
         this.commentDao = commentDao;
     }
 
-    public List<Comment> selectAllComment() {
+    @Override
+    public List<CommentDto> selectAllComment() {
         return commentDao.selectAll();
     }
 
+    @Override
     public Object selectAllCommentByKey(HashMap<Object, Object> map) {
         return commentDao.selectAllByKey(map);
     }
 
-    public Dto selectOneComment(int comment_no) {
-        return commentDao.selectOne(comment_no);
+    @Override
+    public Dto selectOneComment(long commentNo) {
+        return commentDao.selectOne(commentNo);
     }
 
-    public void insertOneComment(Comment comment) {
-        commentDao.insertOne(comment);
+    @Override
+    public void insertOneComment(CommentDto commentDto) {
+        commentDao.insertOne(commentDto);
     }
 
-    public void updateOneComment(Comment comment) {
-        commentDao.updateOne(comment);
+    @Override
+    public void updateOneComment(CommentDto commentDto) {
+        commentDao.updateOne(commentDto);
     }
 
-    public void deleteOneComment(int comment_no) {
-        commentDao.deleteOne(comment_no);
+    @Override
+    public void deleteOneComment(long commentNo) {
+        commentDao.deleteOne(commentNo);
     }
 
-    public void addComment(Comment comment) {
-        commentDao.insertOne(comment);
+    @Override
+    public void addComment(CommentDto commentDto) {
+        commentDao.insertOne(commentDto);
     }
 
-    public void updateComment(Comment comment) {
-        commentDao.updateOne(comment);
+    @Override
+    public void updateComment(CommentDto commentDto) {
+        commentDao.updateOne(commentDto);
     }
 
-    public void deleteComment(int comment_no) {
-        commentDao.deleteOne(comment_no);
+    @Override
+    public void deleteComment(long commentNo) {
+        commentDao.deleteOne(commentNo);
     }
 }

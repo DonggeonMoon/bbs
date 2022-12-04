@@ -3,44 +3,51 @@
   PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="memberMapper">
-  	<select id="selectAll" resultType="Member">
+	<resultMap id="MemberDto" type="MemberDto">
+		<result column="member_id" property="memberId" javaType="String"/>
+		<result column="member_pw" property="memberPw" javaType="String"/>
+		<result column="member_email" property="memberEmail" javaType="String"/>
+		<result column="register_date" property="registerDate" javaType="java.sql.Timestamp"/>
+		<result column="member_level" property="userLevel" javaType="int"/>
+	</resultMap>
+  	<select id="selectAll" resultType="MemberDto">
   		select *
   		from member
   		order by register_date asc;
   	</select>
   	
-  	<select id="selectAllByKey" parameterType="hashmap" resultType="Member">
+  	<select id="selectAllByKey" parameterType="hashmap" resultType="MemberDto">
   		select *
   		from member
   		where ${key} = #{value}
   	</select>
   	
-  	<select id="selectOne" parameterType="String" resultType="Member">
+  	<select id="selectOne" parameterType="String" resultMap="MemberDto">
   		select *
   		from member
-  		where member_id = #{member_id}
+  		where member_id = #{memberId}
   	</select>
-  	
-  	<insert id="insertOne" parameterType="Member">
+
+  	<insert id="insertOne" parameterType="MemberDto">
   		insert into member(member_id, member_pw, member_email, register_date, user_level)
-  		values (#{member_id}, #{member_pw}, #{member_email}, now(), #{user_level})
+  		values (#{memberId}, #{memberPw}, #{memberEmail}, now(), #{userLevel})
   	</insert>
-  	
-  	<update id= "updateOne" parameterType="Member">
+
+  	<update id= "updateOne" parameterType="MemberDto">
   		update member
   		<set>
-  			<if test="member_pw != null">member_pw = #{member_pw},</if>
-  			<if test="member_email != null">member_email = #{member_email},</if>
-  			<if test="user_level != null">user_level = #{user_level}</if>
+  			<if test="memberPw != null">memberPw = #{memberPw},</if>
+  			<if test="memberEmail != null">member_email = #{memberEmail},</if>
+  			<if test="userLevel != null">user_level = #{userLevel}</if>
   		</set>
   		where
-  		member_id = #{member_id}
+  		member_id = #{memberId}
   	</update>
-  	
+
   	<delete id="deleteOne" parameterType="String">
   		delete from member
   		where
-  		member_id = #{member_id}
+  		member_id = #{memberId}
   	</delete>
   	
   </mapper>

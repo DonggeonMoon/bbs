@@ -9,7 +9,7 @@
 </head>
 <body>
 	<header style="float:right">
-		<c:choose><c:when test="${sessionScope.member != null }"><c:out value="${sessionScope.member.member_id }" /> 님 <a href="editMemberInfo">회원 정보 수정</a> <a href="logout">로그아웃</a></c:when><c:otherwise><a href="login">로그인</a></c:otherwise></c:choose>
+		<c:choose><c:when test="${sessionScope.memberDto != null }"><c:out value="${sessionScope.memberDto.memberId }" /> 님 <a href="editMemberInfo">회원 정보 수정</a> <a href="logout">로그아웃</a></c:when><c:otherwise><a href="login">로그인</a></c:otherwise></c:choose>
 	</header>
 	<div style="width:100%;">
 		<h1>관리자 페이지</h1>
@@ -31,19 +31,19 @@
 			<tbody>
 				<c:forEach var="i" items="${memberList }">
 					<tr>
-						<td><c:out value="${i.member_id }" /></td>
-						<td><c:out value="${i.member_email }" /></td>
-						<td><c:out value="${i.user_level }" /></td>
+						<td><c:out value="${i.memberId }" /></td>
+						<td><c:out value="${i.memberEmail }" /></td>
+						<td><c:out value="${i.userLevel }" /></td>
 						<td>
-							<c:if test="${i.user_level != 3 }">
+							<c:if test="${i.userLevel != 3 }">
 								<form style="display:inline" action="changeUserLevel" method="post">
-									<input type="hidden" name="member_id" value="${i.member_id }">
-									<input type="hidden" name="user_level" value="2">
+									<input type="hidden" name="memberId" value="${i.memberId }">
+									<input type="hidden" name="userLevel" value="2">
 									<input type="submit" value="관리자 승격">
 								</form>
 								<form style="display:inline" action="changeUserLevel" method="post">
-									<input type="hidden" name="member_id" value="${i.member_id }">
-									<input type="hidden" name="user_level" value="1">
+									<input type="hidden" name="memberId" value="${i.memberId }">
+									<input type="hidden" name="userLevel" value="1">
 									<input type="submit" value="회원으로 강등">
 								</form>
 							</c:if>

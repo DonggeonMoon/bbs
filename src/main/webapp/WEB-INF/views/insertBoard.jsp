@@ -9,10 +9,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	function checkNotice() {
-		let is_notice = $("#is_notice").val();
-		console.log(is_notice);
-		if (is_notice == 'true') $("#is_notice").val('false');
-		else $("#is_notice").val('true');
+		let isNotice = $("#isNotice").val();
+		console.log(isNotice);
+		if (isNotice == 'true') $("#isNotice").val('false');
+		else $("#isNotice").val('true');
 	}
 </script>
 </head>
@@ -27,21 +27,21 @@
 				</colgroup>
 				<tr>
 					<td>제목</td>
-					<td><input type="text" name="board_title" size="135" maxlength="200"></td>
+					<td><input type="text" name="boardTitle" size="135" maxlength="200"></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea name="board_content" rows="20" cols="100"></textarea></td>
+					<td><textarea name="boardContent" rows="20" cols="100"></textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label><input type="checkbox" id="is_notice" name="is_notice" value="false" onchange="checkNotice()">공지</label>
+						<label><input type="checkbox" id="isNotice" name="isNotice" value="false" onchange="checkNotice()">공지</label>
 					</td>
 				</tr>
 			</table>
 			<input type="submit" value="글 입력">
 			<button type="button" onclick="location.href='boardList'">목록</button>
-			<input type="hidden" name="member_id" value="test">
+			<input type="hidden" name="memberId" value="test">
 		</form>
 	</div>
 </body>

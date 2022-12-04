@@ -1,26 +1,26 @@
 package com.bbs.member.service;
 
-import com.bbs.member.dto.Member;
+import com.bbs.member.dto.MemberDto;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface MemberService {
-    boolean checkId(String member_id);
+    boolean checkId(String memberId);
 
-    boolean checkPw(String member_id, String member_pw);
+    boolean checkPw(String memberId, String memberPw) throws Exception;
 
-    void login(String member_id, HttpSession session);
+    void login(String memberId, HttpSession session);
 
     void logout(HttpSession session);
 
-    void register(Member member);
+    void register(MemberDto memberDto);
 
-    Member getMemberInfo(HttpSession session);
+    MemberDto getMemberInfo(HttpSession session);
 
-    void editMemberInfo(Member member);
+    void editMemberInfo(MemberDto memberDto) throws Exception;
 
-    void deleteMemberInfo(String member_id);
+    void deleteMemberInfo(String memberId);
 
-    List<Member> selectAllMember();
+    List<MemberDto> selectAllMember();
 }

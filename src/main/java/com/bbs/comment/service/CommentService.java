@@ -1,27 +1,27 @@
 package com.bbs.comment.service;
 
 import com.bbs.Dto;
-import com.bbs.comment.dto.Comment;
+import com.bbs.comment.dto.CommentDto;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface CommentService {
-    List<Comment> selectAllComment();
+    List<CommentDto> selectAllComment();
 
     Object selectAllCommentByKey(HashMap<Object, Object> map);
 
-    Dto selectOneComment(int comment_no);
+    Dto selectOneComment(long commentNo) throws Exception;
 
-    void insertOneComment(Comment comment);
+    void insertOneComment(CommentDto commentDto);
 
-    void updateOneComment(Comment comment);
+    void updateOneComment(CommentDto commentDto) throws Exception;
 
-    void deleteOneComment(int comment_no);
+    void deleteOneComment(long commentNo);
 
-    void addComment(Comment comment);
+    void addComment(CommentDto commentDto);
 
-    void updateComment(Comment comment);
+    void updateComment(CommentDto commentDto) throws Exception;
 
-    void deleteComment(int comment_no);
+    void deleteComment(long commentNo);
 }
