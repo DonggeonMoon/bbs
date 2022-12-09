@@ -2,6 +2,7 @@ package com.bbs.member.controller;
 
 import com.bbs.member.dto.MemberDto;
 import com.bbs.member.service.MemberService;
+import com.bbs.util.BbsUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,53 +27,21 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String showLoginPage(String error,
-                                Model model) {
-        model.addAttribute("message", this.getErrorMessage(error));
+    public String showLoginPage(String error, Model model) {
+        model.addAttribute("message", BbsUtils.getErrorMessage(error));
 
         return "login";
     }
 
-    private String getErrorMessage(String error) {
-        if (error != null) {
-            switch (error) {
-                case "1":
-                    return "아이디를 입력해주세요.";
-                case "2":
-                    return "존재하지 않는 아이디 입니다.";
-                case "3":
-                    return "비밀번호가 일치하지 않습니다.";
-                default:
-                    return "";
-            }
-        } else {
-            return "";
-        }
-    }
-
     @PostMapping("/login")
-    public String login(HttpSession session,
-                        MemberDto memberDto) throws Exception {
-        if ("".equals(memberDto.getMemberId().trim())) {
-            return "redirect:/login?error=1";
-        }
-
-        if (!memberService.checkId(memberDto.getMemberId())) {
-            return "redirect:/login?error=2";
-        }
-
-        if (!memberService.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
-            return "redirect:/login?error=3";
-        }
-
-        memberService.login(memberDto.getMemberId(), session);
-
-        return "redirect:/boardList";
+    public String login(HttpSession session, MemberDto memberDto) throws Exception {
+        return memberService.login(session, memberDto);
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         memberService.logout(session);
+
         return "redirect:/";
     }
 
@@ -98,25 +67,26 @@ public class MemberController {
         } else {
             map.put("isUnique", true);
         }
+
         return map;
     }
 
     @GetMapping("/editMemberInfo")
-    public String showMemberInfoModifyPage(HttpSession session,
-                                           Model model) {
+    public String showMemberInfoModifyPage(HttpSession session, Model model) {
         model.addAttribute("memberInfo", memberService.getMemberInfo(session));
+
         return "editMemberInfo";
     }
 
     @PostMapping("/editMemberInfo")
     public String modifyMemberInfo(MemberDto memberDto) throws Exception {
         memberService.editMemberInfo(memberDto);
+
         return "redirect:/boardList";
     }
 
     @GetMapping("/deleteMemberInfo")
-    public void deleteMemberInfo(String memberId,
-                                 HttpServletResponse response) throws IOException {
+    public void deleteMemberInfo(String memberId, HttpServletResponse response) throws IOException {
         memberService.deleteMemberInfo(memberId);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -129,12 +99,14 @@ public class MemberController {
     @GetMapping("/managerPage")
     public String showManagerPage(Model model) {
         model.addAttribute("memberList", memberService.selectAllMember());
+
         return "managerPage";
     }
 
     @PostMapping("/changeUserLevel")
     public String changeUserLevel(MemberDto memberDto) throws Exception {
         memberService.editMemberInfo(memberDto);
+
         return "redirect:/managerPage";
     }
 }

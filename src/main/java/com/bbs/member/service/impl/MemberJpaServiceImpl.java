@@ -29,8 +29,22 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
-    public void login(String memberId, HttpSession session) {
-        session.setAttribute("member", memberRepository.findById(memberId));
+    public String login(HttpSession session, MemberDto memberDto) throws Exception {
+        if ("".equals(memberDto.getMemberId().trim())) {
+            return "redirect:/login?error=1";
+        }
+
+        if (!this.checkId(memberDto.getMemberId())) {
+            return "redirect:/login?error=2";
+        }
+
+        if (!this.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
+            return "redirect:/login?error=3";
+        }
+
+        session.setAttribute("member", memberRepository.findById(memberDto.getMemberId()));
+
+        return "redirect:/boardList";
     }
 
     @Override

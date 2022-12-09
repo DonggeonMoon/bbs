@@ -68,4 +68,8 @@ public class CommentDto implements Dto {
     public static CommentDto of(long boardNo, long commentNo, Long commentParent, int commentDepth, int commentSeq, String memberId, String commentContent, Timestamp commentDate) {
         return new CommentDto(boardNo, commentNo, commentParent, commentDepth, commentSeq, memberId, commentContent, commentDate);
     }
+
+    public void changeIntoParent() {
+        this.commentParent = null;
+    }
 }

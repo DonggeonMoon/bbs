@@ -10,7 +10,7 @@ public interface MemberService {
 
     boolean checkPw(String memberId, String memberPw) throws Exception;
 
-    void login(String memberId, HttpSession session);
+    String login(HttpSession session, MemberDto memberDto) throws Exception;
 
     void logout(HttpSession session);
 

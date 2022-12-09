@@ -16,38 +16,61 @@ public class MemberMyBatisServiceImpl implements MemberService {
         this.memberDao = memberDao;
     }
 
+    @Override
     public boolean checkId(String memberId) {
         return memberDao.selectOne(memberId) != null;
     }
 
+    @Override
     public boolean checkPw(String memberId, String memberPw) {
         return memberDao.selectOne(memberId).getMemberPw().equals(memberPw);
     }
 
-    public void login(String memberId, HttpSession session) {
-        session.setAttribute("member", memberDao.selectOne(memberId));
+    @Override
+    public String login(HttpSession session, MemberDto memberDto) {
+        if ("".equals(memberDto.getMemberId().trim())) {
+            return "redirect:/login?error=1";
+        }
+
+        if (!this.checkId(memberDto.getMemberId())) {
+            return "redirect:/login?error=2";
+        }
+
+        if (!this.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
+            return "redirect:/login?error=3";
+        }
+
+        session.setAttribute("member", memberDao.selectOne(memberDto.getMemberId()));
+
+        return "redirect:/boardList";
     }
 
+    @Override
     public void logout(HttpSession session) {
         session.removeAttribute("member");
     }
 
+    @Override
     public void register(MemberDto memberDto) {
         memberDao.insertOne(memberDto);
     }
 
+    @Override
     public MemberDto getMemberInfo(HttpSession session) {
         return memberDao.selectOne(((MemberDto) session.getAttribute("member")).getMemberId());
     }
 
+    @Override
     public void editMemberInfo(MemberDto memberDto) {
         memberDao.updateOne(memberDto);
     }
 
+    @Override
     public void deleteMemberInfo(String memberId) {
         memberDao.deleteOne(memberId);
     }
 
+    @Override
     public List<MemberDto> selectAllMember() {
         return memberDao.selectAll();
     }

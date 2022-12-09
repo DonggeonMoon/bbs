@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
-
 @Controller
 public class BoardController {
     private final BoardService boardService;
@@ -30,18 +28,16 @@ public class BoardController {
     @GetMapping("/boardList")
     public String showBoardList(Model model) {
         model.addAttribute("boardList", boardService.selectAllBoard());
+
         return "boardList";
     }
 
     @GetMapping("/viewBoard")
-    public String showBoardArticle(Model model,
-                                   int boardNo) throws Exception {
+    public String showBoardArticle(Model model, int boardNo) throws Exception {
         boardService.addHit(boardNo);
         model.addAttribute("board", boardService.selectOneBoard(boardNo));
-        HashMap<Object, Object> map = new HashMap<>();
-        map.put("key", "board_no");
-        map.put("value", boardNo);
-        model.addAttribute("commentList", commentService.selectAllCommentByKey(map));
+        model.addAttribute("commentList", commentService.selectAllCommentByKey("board_no", boardNo));
+
         return "viewBoard";
     }
 
@@ -53,25 +49,28 @@ public class BoardController {
     @PostMapping("/insertBoard")
     public String addBoardArticle(BoardDto boardDto) {
         boardService.insertOneBoard(boardDto);
+
         return "redirect:/boardList";
     }
 
     @GetMapping("/updateBoard")
-    public String showBoardArticleModifyPage(Model model,
-                                                   int boardNo) throws Exception {
+    public String showBoardArticleModifyPage(Model model, int boardNo) throws Exception {
         model.addAttribute("board", boardService.selectOneBoard(boardNo));
+
         return "updateBoard";
     }
 
     @PostMapping("/updateBoard")
     public String modifyBoardArticle(BoardDto boardDto) throws Exception {
         boardService.updateOneBoard(boardDto);
+
         return "redirect:/viewBoard?boardNo=" + boardDto.getBoardNo();
     }
 
     @GetMapping("/deleteBoard")
     public String deleteBoardArticle(int boardNo) {
         boardService.deleteOneBoard(boardNo);
+
         return "redirect:/boardList";
     }
 }

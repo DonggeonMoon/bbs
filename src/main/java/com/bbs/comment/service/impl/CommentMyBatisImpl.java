@@ -23,7 +23,10 @@ public class CommentMyBatisImpl implements CommentService {
     }
 
     @Override
-    public Object selectAllCommentByKey(HashMap<Object, Object> map) {
+    public Object selectAllCommentByKey(String key, Object value) {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("key", key);
+        map.put("value", value);
         return commentDao.selectAllByKey(map);
     }
 
@@ -45,6 +48,12 @@ public class CommentMyBatisImpl implements CommentService {
     @Override
     public void deleteOneComment(long commentNo) {
         commentDao.deleteOne(commentNo);
+    }
+
+    @Override
+    public void addParentComment(CommentDto commentDto) {
+        commentDto.changeIntoParent();
+        commentDao.insertOne(commentDto);
     }
 
     @Override

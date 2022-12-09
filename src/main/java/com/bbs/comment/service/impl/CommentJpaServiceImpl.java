@@ -7,7 +7,6 @@ import com.bbs.comment.repository.CommentRepository;
 import com.bbs.comment.service.CommentService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class CommentJpaServiceImpl implements CommentService {
     }
 
     @Override
-    public Object selectAllCommentByKey(HashMap<Object, Object> map) {
+    public Object selectAllCommentByKey(String key, Object value) {
         return null;
     }
 
@@ -58,6 +57,12 @@ public class CommentJpaServiceImpl implements CommentService {
     @Override
     public void deleteOneComment(long commentNo) {
         commentRepository.deleteById(commentNo);
+    }
+
+    @Override
+    public void addParentComment(CommentDto commentDto) {
+        commentDto.changeIntoParent();
+        commentRepository.save(commentDto.toEntity());
     }
 
     @Override
