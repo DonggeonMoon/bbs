@@ -25,7 +25,10 @@ public class MemberJpaServiceImpl implements MemberService {
 
     @Override
     public boolean checkPw(String memberId, String memberPw) throws Exception {
-        return memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw().equals(memberPw);
+        if (memberPw != null) {
+            return memberPw.equals(memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
+        }
+        return false;
     }
 
     @Override

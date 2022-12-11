@@ -10,13 +10,13 @@
 		<result column="register_date" property="registerDate" javaType="java.sql.Timestamp"/>
 		<result column="member_level" property="userLevel" javaType="int"/>
 	</resultMap>
-  	<select id="selectAll" resultType="MemberDto">
+  	<select id="selectAll" resultMap="MemberDto">
   		select *
   		from member
   		order by register_date asc;
   	</select>
   	
-  	<select id="selectAllByKey" parameterType="hashmap" resultType="MemberDto">
+  	<select id="selectAllByKey" parameterType="hashmap" resultMap="MemberDto">
   		select *
   		from member
   		where ${key} = #{value}

@@ -74,10 +74,6 @@ public class Member {
         return new MemberDto(this.memberId, this.memberPw, this.memberEmail, this.registerDate, this.userLevel);
     }
 
-    public static Member of(String memberId, String memberEmail, String memberPw, Timestamp registerDate, int userLevel) {
-        return new Member(memberId, memberEmail, memberPw, registerDate, userLevel);
-    }
-
     public void update(String memberId, String memberEmail, String memberPw, Timestamp registerDate, int userLevel) {
         this.memberId = memberId;
         this.memberEmail = memberEmail;

@@ -98,10 +98,6 @@ public class Comment {
         return new CommentDto(this.boardNo, this.commentNo, this.commentParent, this.commentDepth, this.commentSeq, this.memberId, this.commentContent, this.commentDate);
     }
 
-    public static Comment of(long boardNo, String commentContent, Timestamp commentDate, int commentDepth, long commentNo, long commentParent, int commentSeq, String memberId) {
-        return new Comment(boardNo, commentContent, commentDate, commentDepth, commentNo, commentParent, commentSeq, memberId);
-    }
-
     public void update(long boardNo, String commentContent, Timestamp commentDate, int commentDepth, long commentNo, long commentParent, int commentSeq, String memberId) {
         this.boardNo = boardNo;
         this.commentContent = commentContent;

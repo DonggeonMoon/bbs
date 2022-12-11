@@ -35,7 +35,7 @@ public class BoardController {
     @GetMapping("/viewBoard")
     public String showBoardArticle(Model model, long boardNo) throws Exception {
         boardService.addHit(boardNo);
-        model.addAttribute("board", boardService.selectOneBoard(boardNo));
+        model.addAttribute("boardDto", boardService.selectOneBoard(boardNo));
         model.addAttribute("commentList", commentService.selectAllCommentByKey("board_no", boardNo));
 
         return "viewBoard";
@@ -55,7 +55,7 @@ public class BoardController {
 
     @GetMapping("/updateBoard")
     public String showBoardArticleModifyPage(Model model, long boardNo) throws Exception {
-        model.addAttribute("board", boardService.selectOneBoard(boardNo));
+        model.addAttribute("boardDto", boardService.selectOneBoard(boardNo));
 
         return "updateBoard";
     }

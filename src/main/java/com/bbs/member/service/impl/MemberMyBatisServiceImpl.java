@@ -23,7 +23,10 @@ public class MemberMyBatisServiceImpl implements MemberService {
 
     @Override
     public boolean checkPw(String memberId, String memberPw) {
-        return memberDao.selectOne(memberId).getMemberPw().equals(memberPw);
+        if (memberPw != null) {
+            return memberPw.equals(memberDao.selectOne(memberId).getMemberPw());
+        }
+        return false;
     }
 
     @Override
@@ -40,14 +43,14 @@ public class MemberMyBatisServiceImpl implements MemberService {
             return "redirect:/login?error=3";
         }
 
-        session.setAttribute("member", memberDao.selectOne(memberDto.getMemberId()));
+        session.setAttribute("memberDto", memberDao.selectOne(memberDto.getMemberId()));
 
         return "redirect:/boardList";
     }
 
     @Override
     public void logout(HttpSession session) {
-        session.removeAttribute("member");
+        session.removeAttribute("memberDto");
     }
 
     @Override
@@ -57,7 +60,7 @@ public class MemberMyBatisServiceImpl implements MemberService {
 
     @Override
     public MemberDto getMemberInfo(HttpSession session) {
-        return memberDao.selectOne(((MemberDto) session.getAttribute("member")).getMemberId());
+        return memberDao.selectOne(((MemberDto) session.getAttribute("memberDto")).getMemberId());
     }
 
     @Override

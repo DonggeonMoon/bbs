@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="commentMapper">
-	<resultMap id="BoardDto" type="BoardDto">
+	<resultMap id="CommentDto" type="CommentDto">
 		<result column="board_no" property="boardNo" javaType="long"/>
 		<result column="comment_no" property="commentNo" javaType="long"/>
 		<result column="comment_parent" property="commentParent" javaType="Long"/>
@@ -13,20 +13,20 @@
 		<result column="comment_content" property="commentContent" javaType="String"/>
 		<result column="comment_date" property="commentDate" javaType="java.sql.Timestamp"/>
 	</resultMap>
-  	<select id="selectAll" resultType="CommentDto">
+  	<select id="selectAll" resultMap="CommentDto">
   		select *
   		from comment
   		order by coalesce(comment_parent, comment_no), comment_seq 
   	</select>
   	
-  	<select id="selectAllByKey" parameterType="hashmap" resultType="CommentDto">
+  	<select id="selectAllByKey" parameterType="hashmap" resultMap="CommentDto">
   		select *
   		from comment
   		where ${key} = #{value}
   		order by coalesce(comment_parent, comment_no), comment_seq 
   	</select>
   	
-  	<select id="selectOne" parameterType="int" resultType="CommentDto">
+  	<select id="selectOne" parameterType="int" resultMap="CommentDto">
   		select *
   		from comment
   		where comment_no = #{commentNo}

@@ -66,8 +66,4 @@ public class MemberDto implements Dto {
     public Member toEntity() {
         return new Member(this.memberId, this.memberPw, this.memberEmail, this.registerDate, this.userLevel);
     }
-
-    public static MemberDto of(String memberId, String memberPw, String memberEmail, Timestamp registerDate, int userLevel) {
-        return new MemberDto(memberId, memberPw, memberEmail, registerDate, userLevel);
-    }
 }
