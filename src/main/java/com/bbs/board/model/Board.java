@@ -90,10 +90,6 @@ public class Board {
         return new BoardDto(this.boardNo, this.memberId, this.boardTitle, this.boardTitle, this.boardHit, this.writeDate, this.isNotice);
     }
 
-    public static Board of(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {
-        return new Board(boardNo, boardContent, boardHit, boardTitle, isNotice, memberId, writeDate);
-    }
-
     public void update(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {
         this.boardNo = boardNo;
         this.boardContent = boardContent;

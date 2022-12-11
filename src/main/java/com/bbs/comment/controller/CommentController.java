@@ -36,7 +36,7 @@ public class CommentController {
     }
 
     @PostMapping("/deleteComment")
-    public String deleteComment(int commentNo, int boardNo) {
+    public String deleteComment(long commentNo, long boardNo) {
         commentService.deleteComment(commentNo);
 
         return "redirect:/viewBoard?boardNo=" + boardNo;

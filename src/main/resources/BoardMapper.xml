@@ -3,46 +3,55 @@
   PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="boardMapper">
-  	<select id="selectAll" resultType="BoardDto">
+	<resultMap id="BoardDto" type="BoardDto">
+		<result column="board_no" property="boardNo" javaType="long"/>
+		<result column="member_id" property="memberId" javaType="String"/>
+		<result column="board_title" property="boardTitle" javaType="String"/>
+		<result column="board_content" property="boardContent" javaType="String"/>
+		<result column="board_hit" property="boardHit" javaType="int"/>
+		<result column="write_date" property="writeDate" javaType="java.sql.Timestamp"/>
+		<result column="is_notice" property="isNotice" javaType="boolean"/>
+	</resultMap>
+  	<select id="selectAll" resultMap="BoardDto">
   		select *
   		from board
   		order by is_notice desc, board_no desc
   	</select>
   	
-  	<select id="selectAllByKey" parameterType="hashmap" resultType="BoardDto">
+  	<select id="selectAllByKey" parameterType="hashmap" resultMap="BoardDto">
   		select *
   		from board
   		order by board_no desc
   		where ${key} = #{value}
   	</select>
   	
-  	<select id="selectOne" parameterType="int" resultType="BoardDto">
+  	<select id="selectOne" parameterType="long" resultMap="BoardDto">
   		select *
   		from board
-  		where board_no = #{board_no}
+  		where board_no = #{boardNo}
   	</select>
   	
   	<insert id="insertOne" parameterType="BoardDto">
   		insert into board(board_no, member_id, board_title, board_content, board_hit, write_date, is_notice)
-  		values (default, #{member_id}, #{board_title}, #{board_content}, default, now(), #{is_notice})
+  		values (default, #{memberId}, #{boardTitle}, #{boardContent}, default, now(), #{isNotice})
   	</insert>
   	
   	<update id= "updateOne" parameterType="BoardDto">
   		update board
   		<set>
-  			<if test="board_title != null">board_title = #{board_title},</if>
-  			<if test="board_content != null">board_content = #{board_content},</if>
-  			<if test="board_hit != null">board_hit = #{board_hit},</if>
-  			<if test="is_notice != null">is_notice = #{is_notice}</if>
+  			<if test="boardTitle != null">board_title = #{boardTitle},</if>
+  			<if test="boardContent != null">board_content = #{boardContent},</if>
+  			<if test="boardHit != null">board_hit = #{boardHit},</if>
+  			<if test="isNotice != null">is_notice = #{isNotice}</if>
   		</set>
   		where
-  		board_no = #{board_no}
+  		board_no = #{boardNo}
   	</update>
   	
-  	<delete id="deleteOne" parameterType="int">
+  	<delete id="deleteOne" parameterType="long">
   		delete from board
   		where
-  		board_no = #{board_no}
+  		board_no = #{boardNo}
   	</delete>
   	
   </mapper>

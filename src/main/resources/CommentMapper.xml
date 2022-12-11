@@ -3,6 +3,16 @@
   PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="commentMapper">
+	<resultMap id="BoardDto" type="BoardDto">
+		<result column="board_no" property="boardNo" javaType="long"/>
+		<result column="comment_no" property="commentNo" javaType="long"/>
+		<result column="comment_parent" property="commentParent" javaType="Long"/>
+		<result column="comment_depth" property="commentDepth" javaType="int"/>
+		<result column="comment_seq" property="commentSeq" javaType="int"/>
+		<result column="member_id" property="memberId" javaType="String"/>
+		<result column="comment_content" property="commentContent" javaType="String"/>
+		<result column="comment_date" property="commentDate" javaType="java.sql.Timestamp"/>
+	</resultMap>
   	<select id="selectAll" resultType="CommentDto">
   		select *
   		from comment
@@ -19,27 +29,27 @@
   	<select id="selectOne" parameterType="int" resultType="CommentDto">
   		select *
   		from comment
-  		where comment_no = #{comment_no}
+  		where comment_no = #{commentNo}
   	</select>
   	
   	<insert id="insertOne" parameterType="CommentDto">
   		insert into comment(board_no, comment_no, comment_parent, comment_depth, comment_seq, member_id, comment_content, comment_date)
-  		values (#{board_no}, default, #{comment_parent}, #{comment_depth}, #{comment_seq}, #{member_id}, #{comment_content}, now())
+  		values (#{boardNo}, default, #{commentParent}, #{commentDepth}, #{commentSeq}, #{memberId}, #{commentContent}, now())
   	</insert>
   	
   	<update id= "updateOne" parameterType="CommentDto">
   		update comment
   		<set>
-  			<if test="comment_content != null">comment_content = #{comment_content},</if>
+  			<if test="commentContent != null">comment_content = #{commentContent},</if>
   		</set>
   		where
-  		comment_no = #{comment_no}
+  		comment_no = #{commentNo}
   	</update>
   	
   	<delete id="deleteOne" parameterType="int">
   		delete from comment
   		where
-  		comment_no = #{comment_no}
+  		comment_no = #{commentNo}
   	</delete>
   	
   </mapper>

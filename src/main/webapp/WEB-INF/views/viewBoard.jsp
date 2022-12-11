@@ -81,7 +81,7 @@
 			</c:forEach>
 			<tr style="text-align:center;">
 				<td colspan="6">
-					<form action="addComment" method="post">
+					<form action="/addComment" method="post">
 						<textarea name="commentContent" cols="100"></textarea>
 						<input type="hidden" name="boardNo" value="<c:out value='${boardDto.boardNo }' />">
 						<input type="hidden" name="commentDepth" value="<c:out value='1' />">

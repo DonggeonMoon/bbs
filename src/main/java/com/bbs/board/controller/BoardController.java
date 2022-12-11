@@ -33,7 +33,7 @@ public class BoardController {
     }
 
     @GetMapping("/viewBoard")
-    public String showBoardArticle(Model model, int boardNo) throws Exception {
+    public String showBoardArticle(Model model, long boardNo) throws Exception {
         boardService.addHit(boardNo);
         model.addAttribute("board", boardService.selectOneBoard(boardNo));
         model.addAttribute("commentList", commentService.selectAllCommentByKey("board_no", boardNo));
@@ -54,7 +54,7 @@ public class BoardController {
     }
 
     @GetMapping("/updateBoard")
-    public String showBoardArticleModifyPage(Model model, int boardNo) throws Exception {
+    public String showBoardArticleModifyPage(Model model, long boardNo) throws Exception {
         model.addAttribute("board", boardService.selectOneBoard(boardNo));
 
         return "updateBoard";
@@ -68,7 +68,7 @@ public class BoardController {
     }
 
     @GetMapping("/deleteBoard")
-    public String deleteBoardArticle(int boardNo) {
+    public String deleteBoardArticle(long boardNo) {
         boardService.deleteOneBoard(boardNo);
 
         return "redirect:/boardList";
