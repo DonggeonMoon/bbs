@@ -17,12 +17,12 @@ public class MemberMyBatisServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkId(String memberId) {
+    public boolean isIdPresent(String memberId) {
         return memberDao.selectOne(memberId) != null;
     }
 
     @Override
-    public boolean checkPw(String memberId, String memberPw) {
+    public boolean isPasswordCorrect(String memberId, String memberPw) {
         if (memberPw != null) {
             return memberPw.equals(memberDao.selectOne(memberId).getMemberPw());
         }
@@ -35,11 +35,11 @@ public class MemberMyBatisServiceImpl implements MemberService {
             return "redirect:/login?error=1";
         }
 
-        if (!this.checkId(memberDto.getMemberId())) {
+        if (!this.isIdPresent(memberDto.getMemberId())) {
             return "redirect:/login?error=2";
         }
 
-        if (!this.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
+        if (!this.isPasswordCorrect(memberDto.getMemberId(), memberDto.getMemberPw())) {
             return "redirect:/login?error=3";
         }
 

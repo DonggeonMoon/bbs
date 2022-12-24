@@ -26,7 +26,7 @@ public class BoardController {
     }
 
     @GetMapping("/boardList")
-    public String showBoardList(Model model) {
+    public String showBoardArticleList(Model model) {
         model.addAttribute("boardList", boardService.selectAllBoard());
 
         return "boardList";

@@ -6,9 +6,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface MemberService {
-    boolean checkId(String memberId);
+    boolean isIdPresent(String memberId);
 
-    boolean checkPw(String memberId, String memberPw) throws Exception;
+    boolean isPasswordCorrect(String memberId, String memberPw) throws Exception;
 
     String login(HttpSession session, MemberDto memberDto) throws Exception;
 
@@ -16,7 +16,7 @@ public interface MemberService {
 
     void register(MemberDto memberDto);
 
-    MemberDto getMemberInfo(HttpSession session);
+    MemberDto getMemberInfo(HttpSession session) throws Exception;
 
     void editMemberInfo(MemberDto memberDto) throws Exception;
 

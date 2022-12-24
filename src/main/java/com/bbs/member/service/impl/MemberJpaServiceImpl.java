@@ -19,12 +19,12 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkId(String memberId) {
+    public boolean isIdPresent(String memberId) {
         return memberRepository.findById(memberId).isPresent();
     }
 
     @Override
-    public boolean checkPw(String memberId, String memberPw) throws Exception {
+    public boolean isPasswordCorrect(String memberId, String memberPw) throws Exception {
         if (memberPw != null) {
             return memberPw.equals(memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
         }
@@ -37,11 +37,11 @@ public class MemberJpaServiceImpl implements MemberService {
             return "redirect:/login?error=1";
         }
 
-        if (!this.checkId(memberDto.getMemberId())) {
+        if (!this.isIdPresent(memberDto.getMemberId())) {
             return "redirect:/login?error=2";
         }
 
-        if (!this.checkPw(memberDto.getMemberId(), memberDto.getMemberPw())) {
+        if (!this.isPasswordCorrect(memberDto.getMemberId(), memberDto.getMemberPw())) {
             return "redirect:/login?error=3";
         }
 
@@ -61,8 +61,10 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto getMemberInfo(HttpSession session) {
-        return null;
+    public MemberDto getMemberInfo(HttpSession session) throws Exception {
+        return memberRepository.findById(((MemberDto) session.getAttribute("memberDto")).getMemberId())
+                .orElseThrow(Exception::new)
+                .toDto();
     }
 
     @Override

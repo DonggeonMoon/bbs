@@ -62,17 +62,13 @@ public class MemberController {
     @ResponseBody
     public Map<Object, Object> checkId(@RequestBody String memberId) {
         HashMap<Object, Object> map = new HashMap<>();
-        if (memberService.checkId(memberId)) {
-            map.put("isUnique", false);
-        } else {
-            map.put("isUnique", true);
-        }
+        map.put("isUnique", !memberService.isIdPresent(memberId));
 
         return map;
     }
 
     @GetMapping("/editMemberInfo")
-    public String showMemberInfoModifyPage(HttpSession session, Model model) {
+    public String showMemberInfoModifyPage(HttpSession session, Model model) throws Exception {
         model.addAttribute("memberInfo", memberService.getMemberInfo(session));
 
         return "editMemberInfo";
