@@ -29,7 +29,7 @@ public class Board {
     @Column(name = "member_id")
     private String memberId;
     @Basic
-    @Column(name = "write_date")
+    @Column(name = "write_date", columnDefinition = "timestamp default current_timestamp()")
     private Timestamp writeDate;
 
     public Board() {
@@ -87,7 +87,7 @@ public class Board {
     }
 
     public BoardDto toDto() {
-        return new BoardDto(this.boardNo, this.memberId, this.boardTitle, this.boardTitle, this.boardHit, this.writeDate, this.isNotice);
+        return new BoardDto(this.boardNo, this.memberId, this.boardTitle, this.boardContent, this.boardHit, this.writeDate, this.isNotice);
     }
 
     public void update(long boardNo, String boardContent, int boardHit, String boardTitle, boolean isNotice, String memberId, Timestamp writeDate) {

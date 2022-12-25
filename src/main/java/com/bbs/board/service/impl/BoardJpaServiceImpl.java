@@ -6,8 +6,8 @@ import com.bbs.board.model.Board;
 import com.bbs.board.repository.BoardRepository;
 import com.bbs.board.service.BoardService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +21,7 @@ public class BoardJpaServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public List<BoardDto> selectAllBoard() {
         return boardRepository.findAll().stream()
                 .map(Board::toDto)
@@ -28,27 +29,27 @@ public class BoardJpaServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public Object selectAllBoardByKey(HashMap<Object, Object> map) {
         return null;
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public Dto selectOneBoard(long boardNo) throws Exception {
         return boardRepository.findById(boardNo).orElseThrow(Exception::new).toDto();
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void insertOneBoard(BoardDto boardDto) {
         boardRepository.save(boardDto.toEntity());
     }
 
     @Override
-    @Transactional
+    @Transactional(value = "jpaTransactionManager")
     public void updateOneBoard(BoardDto boardDto) throws Exception {
         Board board = boardRepository.findById(boardDto.getBoardNo()).orElseThrow(Exception::new);
-        System.out.println("board.getBoardContent() = " + board.getBoardContent());
-        System.out.println("board.getMemberId() = " + board.getMemberId());
-        System.out.println("board.getBoardTitle() = " + board.getBoardTitle());
         board.update(boardDto.getBoardNo(),
                 boardDto.getBoardContent(),
                 boardDto.getBoardHit(),
@@ -56,16 +57,16 @@ public class BoardJpaServiceImpl implements BoardService {
                 boardDto.isNotice(),
                 boardDto.getMemberId(),
                 boardDto.getWriteDate());
-        System.out.println("boardDto.getBoardContent() = " + boardDto.getBoardContent());
-        System.out.println("board.getBoardContent() = " + board.getBoardContent());
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void deleteOneBoard(long boardNo) {
         boardRepository.deleteById(boardNo);
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void addHit(long boardNo) throws Exception {
         Board fromDb = boardRepository.findById(boardNo).orElseThrow(Exception::new);
         fromDb.update(fromDb.getBoardNo(),

@@ -17,7 +17,7 @@ public class Comment {
     @Column(name = "comment_content")
     private String commentContent;
     @Basic
-    @Column(name = "comment_date")
+    @Column(name = "comment_date", columnDefinition = "timestamp default current_timestamp()")
     private Timestamp commentDate;
     @Basic
     @Column(name = "comment_depth")

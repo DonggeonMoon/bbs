@@ -5,6 +5,7 @@ import com.bbs.member.model.Member;
 import com.bbs.member.repository.MemberRepository;
 import com.bbs.member.service.MemberService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -19,13 +20,14 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public boolean isIdPresent(String memberId) {
         return memberRepository.findById(memberId).isPresent();
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public boolean isPasswordCorrect(String memberId, String memberPw) throws Exception {
-        System.out.println("memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw() = " + memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
         if (memberPw != null) {
             return memberPw.equals(memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
         }
@@ -33,6 +35,7 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public String login(HttpSession session, MemberDto memberDto) throws Exception {
         if ("".equals(memberDto.getMemberId().trim())) {
             return "redirect:/login?error=1";
@@ -46,22 +49,25 @@ public class MemberJpaServiceImpl implements MemberService {
             return "redirect:/login?error=3";
         }
 
-        session.setAttribute("member", memberRepository.findById(memberDto.getMemberId()));
+        session.setAttribute("memberDto", memberRepository.findById(memberDto.getMemberId()).orElseThrow(Exception::new).toDto());
 
         return "redirect:/boardList";
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void logout(HttpSession session) {
         session.removeAttribute("member");
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void register(MemberDto memberDto) {
         memberRepository.save(memberDto.toEntity());
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public MemberDto getMemberInfo(HttpSession session) throws Exception {
         return memberRepository.findById(((MemberDto) session.getAttribute("memberDto")).getMemberId())
                 .orElseThrow(Exception::new)
@@ -69,6 +75,7 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void editMemberInfo(MemberDto memberDto) throws Exception {
         Member member = memberRepository.findById(memberDto.getMemberId()).orElseThrow(Exception::new);
         member.update(memberDto.getMemberId(),
@@ -79,11 +86,13 @@ public class MemberJpaServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager")
     public void deleteMemberInfo(String memberId) {
         memberRepository.deleteById(memberId);
     }
 
     @Override
+    @Transactional(value = "jpaTransactionManager", readOnly = true)
     public List<MemberDto> selectAllMember() {
         return memberRepository.findAll().stream()
                 .map(Member::toDto)

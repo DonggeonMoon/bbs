@@ -1,7 +1,7 @@
 package com.bbs.board.dao;
 
-import com.bbs.board.dto.BoardDto;
 import com.bbs.Dao;
+import com.bbs.board.dto.BoardDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

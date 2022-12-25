@@ -45,9 +45,9 @@
         </table>
         <input type="submit" value="글 입력">
         <button type="button" onclick="location.href='boardList'">목록</button>
-        <input type="hidden" name="boardNo" value="<c:out value="${boardDto.boardNo}" />">
-        <input type="hidden" name="boardHit" value="<c:out value="${boardDto.boardHit}" />">
-        <input type="hidden" name="memberId">
+        <input type="hidden" name="boardNo" value="<c:out value="${boardDto.boardNo}"/>">
+        <input type="hidden" name="boardHit" value="<c:out value="${boardDto.boardHit}"/>">
+        <input type="hidden" name="memberId" value="<c:out value="${boardDto.memberId}"/>"/>
     </form>
 </div>
 </body>

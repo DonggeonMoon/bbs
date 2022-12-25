@@ -1,7 +1,7 @@
 package com.bbs.comment.dao;
 
-import com.bbs.comment.dto.CommentDto;
 import com.bbs.Dao;
+import com.bbs.comment.dto.CommentDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

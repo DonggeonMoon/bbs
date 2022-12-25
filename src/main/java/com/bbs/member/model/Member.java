@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "member_pw")
     private String memberPw;
     @Basic
-    @Column(name = "register_date")
+    @Column(name = "register_date", columnDefinition = "timestamp default current_timestamp()")
     private Timestamp registerDate;
     @Basic
     @Column(name = "user_level")
