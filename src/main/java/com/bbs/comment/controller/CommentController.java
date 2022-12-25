@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CommentController {
     private final CommentService commentService;
 
-    public CommentController(@Qualifier("commentMyBatisImpl") CommentService commentService) {
+    public CommentController(@Qualifier("commentJpaServiceImpl") CommentService commentService) {
         this.commentService = commentService;
     }
 

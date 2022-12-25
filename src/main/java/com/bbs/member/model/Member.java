@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "member2")
 public class Member {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "member_id")
     private String memberId;

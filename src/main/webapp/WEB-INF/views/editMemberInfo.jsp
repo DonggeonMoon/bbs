@@ -48,7 +48,7 @@
     </form>
     <div>
         <button type="button"
-                onclick="location.href='deleteMemberInfo?memberId=<c:out value="${memberInfo.memberId}"/>'">화원 탈퇴
+                onclick="location.href='deleteMemberInfo?memberId=<c:out value="${memberInfo.memberId}"/>'">회원 탈퇴
         </button>
     </div>
     <div>

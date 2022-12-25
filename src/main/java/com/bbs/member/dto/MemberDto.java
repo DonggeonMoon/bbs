@@ -64,6 +64,6 @@ public class MemberDto implements Dto {
     }
 
     public Member toEntity() {
-        return new Member(this.memberId, this.memberPw, this.memberEmail, this.registerDate, this.userLevel);
+        return new Member(this.memberId, this.memberEmail, this.memberPw, this.registerDate, this.userLevel);
     }
 }

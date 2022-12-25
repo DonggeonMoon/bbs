@@ -36,7 +36,7 @@
   	<update id= "updateOne" parameterType="MemberDto">
   		update member
   		<set>
-  			<if test="memberPw != null">memberPw = #{memberPw},</if>
+  			<if test="memberPw != null">member_pw = #{memberPw},</if>
   			<if test="memberEmail != null">member_email = #{memberEmail},</if>
   			<if test="userLevel != null">user_level = #{userLevel}</if>
   		</set>

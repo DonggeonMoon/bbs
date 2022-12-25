@@ -22,7 +22,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
 
-    public MemberController(@Qualifier("memberMyBatisServiceImpl") MemberService memberService) {
+    public MemberController(@Qualifier("memberJpaServiceImpl") MemberService memberService) {
         this.memberService = memberService;
     }
 

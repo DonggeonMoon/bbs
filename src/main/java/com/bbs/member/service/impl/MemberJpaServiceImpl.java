@@ -25,6 +25,7 @@ public class MemberJpaServiceImpl implements MemberService {
 
     @Override
     public boolean isPasswordCorrect(String memberId, String memberPw) throws Exception {
+        System.out.println("memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw() = " + memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
         if (memberPw != null) {
             return memberPw.equals(memberRepository.findById(memberId).orElseThrow(Exception::new).getMemberPw());
         }
@@ -70,11 +71,11 @@ public class MemberJpaServiceImpl implements MemberService {
     @Override
     public void editMemberInfo(MemberDto memberDto) throws Exception {
         Member member = memberRepository.findById(memberDto.getMemberId()).orElseThrow(Exception::new);
-        member.update(member.getMemberId(),
-                member.getMemberEmail(),
-                member.getMemberPw(),
-                member.getRegisterDate(),
-                member.getUserLevel());
+        member.update(memberDto.getMemberId(),
+                memberDto.getMemberEmail(),
+                memberDto.getMemberPw(),
+                memberDto.getRegisterDate(),
+                memberDto.getUserLevel());
     }
 
     @Override

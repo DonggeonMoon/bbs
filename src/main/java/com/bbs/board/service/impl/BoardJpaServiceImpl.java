@@ -7,6 +7,7 @@ import com.bbs.board.repository.BoardRepository;
 import com.bbs.board.service.BoardService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,15 +43,21 @@ public class BoardJpaServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void updateOneBoard(BoardDto boardDto) throws Exception {
         Board board = boardRepository.findById(boardDto.getBoardNo()).orElseThrow(Exception::new);
-        board.update(board.getBoardNo(),
-                board.getBoardContent(),
-                board.getBoardHit(),
-                board.getBoardTitle(),
-                board.isNotice(),
-                board.getMemberId(),
-                board.getWriteDate());
+        System.out.println("board.getBoardContent() = " + board.getBoardContent());
+        System.out.println("board.getMemberId() = " + board.getMemberId());
+        System.out.println("board.getBoardTitle() = " + board.getBoardTitle());
+        board.update(boardDto.getBoardNo(),
+                boardDto.getBoardContent(),
+                boardDto.getBoardHit(),
+                boardDto.getBoardTitle(),
+                boardDto.isNotice(),
+                boardDto.getMemberId(),
+                boardDto.getWriteDate());
+        System.out.println("boardDto.getBoardContent() = " + boardDto.getBoardContent());
+        System.out.println("board.getBoardContent() = " + board.getBoardContent());
     }
 
     @Override

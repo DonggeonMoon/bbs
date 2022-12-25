@@ -73,14 +73,14 @@ public class CommentJpaServiceImpl implements CommentService {
     @Override
     public void updateComment(CommentDto commentDto) throws Exception {
         Comment comment = commentRepository.findById(commentDto.getCommentNo()).orElseThrow(Exception::new);
-        comment.update(comment.getBoardNo(),
-                comment.getCommentContent(),
-                comment.getCommentDate(),
-                comment.getCommentDepth(),
-                comment.getCommentNo(),
-                comment.getCommentParent(),
-                comment.getCommentSeq(),
-                comment.getMemberId());
+        comment.update(commentDto.getBoardNo(),
+                commentDto.getCommentContent(),
+                commentDto.getCommentDate(),
+                commentDto.getCommentDepth(),
+                commentDto.getCommentNo(),
+                commentDto.getCommentParent(),
+                commentDto.getCommentSeq(),
+                commentDto.getMemberId());
     }
 
     @Override

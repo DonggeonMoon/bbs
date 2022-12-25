@@ -44,4 +44,8 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactoryBean"/>
     </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <constructor-arg ref="entityManagerFactory"/>
+    </bean>
 </beans>

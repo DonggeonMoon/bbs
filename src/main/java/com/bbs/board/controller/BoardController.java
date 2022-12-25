@@ -14,8 +14,8 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
 
-    public BoardController(@Qualifier("boardMyBatisServiceImpl") BoardService boardService,
-                           @Qualifier("commentMyBatisImpl") CommentService commentService) {
+    public BoardController(@Qualifier("boardJpaServiceImpl") BoardService boardService,
+                           @Qualifier("commentJpaServiceImpl") CommentService commentService) {
         this.boardService = boardService;
         this.commentService = commentService;
     }
