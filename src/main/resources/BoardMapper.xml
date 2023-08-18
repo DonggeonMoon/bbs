@@ -21,8 +21,8 @@
   	<select id="selectAllByKey" parameterType="hashmap" resultMap="BoardDto">
   		select *
   		from board
-  		order by board_no desc
-  		where ${key} = #{value}
+		where ${key} = #{value}
+		order by board_no desc
   	</select>
   	
   	<select id="selectOne" parameterType="long" resultMap="BoardDto">

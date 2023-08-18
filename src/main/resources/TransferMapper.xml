@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="transferMapper">
+    <sql id="transferColumns">
+        id,
+        trade_dtm,
+        acct_id,
+        trade_stat,
+        trade_kind,
+        trade_type,
+        cur_cd,
+        main_net,
+        dpwd_type,
+        oppt_type,
+        oppt_cd,
+        oppt_addr,
+        oppt_sub_info,
+        oppt_trade_date,
+        txid,
+        trade_amt,
+        fee,
+        pay_fee,
+        depo_req_amt,
+        cur_pbal,
+        cur_nbal,
+        curt_prc,
+        extr_trade_amt,
+        crypt_cmlt_dtm,
+        cmlt_dtm,
+        rmrk_memo,
+        work_id,
+        work_dtm,
+        media_type,
+        pub_ip,
+        prv_ip,
+        mac_addr,
+        won_conv_amt,
+        verify_uuid,
+        vasp_id,
+        benf_nm,
+        benf_id
+    </sql>
+
+    <insert id="insertTransfer">
+        insert into ledger.tbl_dpwd_info(
+            <include refid="transferColumns"/>
+        )
+        values (
+            #{id},
+            #{tradeDateTime},
+            #{accountId},
+            #{tradeStatus},
+            #{tradeKind},
+            #{tradeType},
+            #{symbol},
+            #{mainNet},
+            #{transferType},
+            #{opponentType},
+            #{opponentCode},
+            #{opponentAddress},
+            #{opponentSubInfo},
+            #{opponentTradeDate},
+            #{txid},
+            #{tradeAmountt},
+            #{fee},
+            #{payFee},
+            #{depositRequiredAmount},
+            #{currencyPreviousBalance},
+            #{currencyNowBalance},
+            #{currentPrice},
+            #{extraTradeAmount},
+            #{cryptoCurrencyCompletedDateTime},
+            #{completedDateTime},
+            #{remarkMemo},
+            #{workId},
+            #{workDateTime},
+            #{mediaType},
+            #{publicIp},
+            #{privateIp},
+            #{macAddress},
+            #{wonConversionAmount},
+            #{verifyUuid},
+            #{vaspId},
+            #{benficiaryName},
+            #{benneficiaryId}
+        )
+    </insert>
+
+    <select id="selectTransfers">
+        select
+            <include refid="transferColumns"/>
+        from
+            ledger.tbl_dpwd_info
+        where
+            <where>
+                id = #{id},
+                trade_dtm = #{tradeDateTime},
+                acct_id = #{accountId},
+                trade_stat = #{tradeStatus},
+                trade_kind = #{tradeKind},
+                trade_type = #{tradeType},
+                cur_cd = #{symbol},
+                main_net = #{mainNet},
+                dpwd_type = #{transferType},
+                oppt_type = #{opponentType},
+                oppt_cd = #{opponentCode},
+                oppt_addr = #{opponentAddress},
+                oppt_sub_info = #{opponentSubInfo},
+                oppt_trade_date = #{opponentTradeDate},
+                txid = #{txid},
+                trade_amt = #{tradeAmountt},
+                fee = #{fee},
+                pay_fee = #{payFee},
+                depo_req_amt = #{depositRequiredAmount},
+                cur_pbal = #{currencyPreviousBalance},
+                cur_nbal = #{currencyNowBalance},
+                curt_prc = #{currentPrice},
+                extr_trade_amt = #{extraTradeAmount},
+                crypt_cmlt_dtm = #{cryptoCurrencyCompletedDateTime},
+                cmlt_dtm = #{completedDateTime},
+                rmrk_memo = #{remarkMemo},
+                work_id = #{workId},
+                work_dtm = #{workDateTime},
+                media_type = #{mediaType},
+                pub_ip = #{publicIp},
+                prv_ip = #{privateIp},
+                mac_addr = #{macAddress},
+                won_conv_amt = #{wonConversionAmount},
+                verify_uuid = #{verifyUuid},
+                vasp_id = #{vaspId},
+                benf_nm = #{benficiaryName},
+                benf_id = #{benneficiaryId}
+            </where>
+    </select>
+
+    <select id="selectTransfer">
+        select
+        <include refid="transferColumns"/>
+        from
+        ledger.tbl_dpwd_info
+        where
+        <where>
+
+        </where>
+        limit 1
+    </select>
+
+    <update id="updateTransfer">
+        update ledger.tbl_dpwd_info
+        set
+        where
+            <where>
+
+            </where>
+    </update>
+
+    <delete id="deleteTransfer">
+        delete from ledger.tbl_dpwd_info
+        where
+            <where>
+
+            </where>
+    </delete>
+
+</mapper>
